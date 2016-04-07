@@ -61,6 +61,8 @@ If you are using some other starting materails, explain what they are. Basically
 	
 ### Architecture Diagram
 ![Architecture Diagram](https://github.com/oplS16projects/Procedure-Lettuce-Tomato/blob/master/architecture_diagram.png)
+Architecture Elements (Diagram Right->Left)
+* Game Engine
 
 
 ## Schedule
