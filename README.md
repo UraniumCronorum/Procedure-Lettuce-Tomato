@@ -88,7 +88,7 @@ Write concrete steps for your schedule to move from concept to working system.
 * Basic procedural generation tests.
 
 ### Second Milestone (Fri Apr 22)
-* Apply and improve procedural generation algorithm to level design/ audio.
+* Apply procedural generation algorithm to level design/ audio.
 
 ### Final Presentation (last week of semester)
 * Embellishments
