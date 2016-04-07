@@ -61,8 +61,16 @@ If you are using some other starting materails, explain what they are. Basically
 	
 ### Architecture Diagram
 ![Architecture Diagram](https://github.com/oplS16projects/Procedure-Lettuce-Tomato/blob/master/architecture_diagram.png)
-Architecture Elements (Diagram Right->Left)
-* Game Engine
+Game Engine
+* Audio Engine
+	* Organizes game audio assets and provides an interface to them for the Gameplay Engine.  Responsible for music and sound effects.
+* Graphics Engine
+	* Organizes game level graphical assets and provides an interface to them for the Gameplay Engine. Responsible for level setup and sprite animation.
+* Gameplay Engine
+	* Coordinates graphical and audio elements.
+	* Handles user input.
+Game Asset Generation
+
 
 
 ## Schedule
