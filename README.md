@@ -50,8 +50,8 @@ If you are using some other starting materails, explain what they are. Basically
 * What will it be able to do at the live demo?
 * What exactly will you produce at the end of the project? 
 * What will it do? -->
-	* We will have a playable 2D Game to demonstrate at the end of the project.  
-	* If given a specific seed, it should always generate the same level layout and audio for that seed.
+* We will have a playable 2D Game to demonstrate at the end of the project.  
+* If given a specific seed, it should always generate the same level layout and audio for that seed.
 
 ### Evaluation of Results
 * We will be able to measure our success by ensuring:
