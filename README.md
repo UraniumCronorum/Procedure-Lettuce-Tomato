@@ -61,9 +61,7 @@ If you are using some other starting materails, explain what they are. Basically
 	
 ### Architecture Diagram
 ![Architecture Diagram](https://github.com/oplS16projects/Procedure-Lettuce-Tomato/blob/master/architecture_diagram.png)
-* Upload the architecture diagram you made for your slide presentation to your repository, and include it in-line here.
 
-* Create several paragraphs of narrative to explain the pieces and how they interoperate.
 
 ## Schedule
 <!--Explain how you will go from proposal to finished product. 
