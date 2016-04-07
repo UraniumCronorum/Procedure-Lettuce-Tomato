@@ -6,20 +6,15 @@
 * Why is it interesting? 
 	* Many elements of the game including both graphics and audio will be psuedo-randomly procedurally generated.
 * Why is it interesting to you personally? 
-	* (David) I have a background in music/audio composition, and I am also an hobbyist gamer.  I've been interested in procedural generation of music for a while too.  This project will allow me to explore all of these areas.  
+	* (David) I have a background in music/audio composition, and I am also an hobbyist gamer.  I've been interested in procedural generation of music for a while.  This project will allow me to explore all of these areas.  
 * What do you hope to learn? 
-	* 
-
+	* (David) I hope to learn more about real-world applications of functional programming concepts.
 
 
 ### Analysis
-Explain what approaches from class you will bring to bear on the project. 
-* Be explicit: e.g., will you use recursion? How? 
-* Will you use map/filter/reduce? How? 
-* Will you use data abstraction? 
-* Will you use object-orientation? Will you use functional approaches to processing your data? Will you use state-modification approaches? A combination?
+During the audio generation process, audio will be represented as lists of notes.  Map and Reduce will be used to convert lists of notes into rsounds, and consolidate multiple rsounds into a single rsound.
 
-The idea here is to identify what ideas from the class you will use in carrying out your project. 
+Digital Audio is both resource-heavy and unintuitive to think about musically.  As such, it will be abstracted as music notes and sound effects.
 
 ### Data set or other source materials
 If you will be working with existing data, where will you get those data from? (Dowload it from a website? access it in a database? create it in a simulation you will build....)
@@ -33,7 +28,7 @@ If you are using some other starting materails, explain what they are. Basically
 ### Deliverable and Demonstration
 Explain exactly what you'll have at the end. 
 * What will it be able to do at the live demo?
-
+	* We will have a playable 2D Game to demonstrate at the 
 * What exactly will you produce at the end of the project? 
 * What will it do?
 
@@ -41,6 +36,7 @@ Eg.
 * Will it run on some data, like batch mode? 
 * Will you present some analytical results of the processing? 
 * How can it be re-run on different source data?
+	* It can be given a specific seed to use to generate a 
 
 * Will it be interactive? 
 * Can you show it working? This project involves a live demo, so interactivity is good.
