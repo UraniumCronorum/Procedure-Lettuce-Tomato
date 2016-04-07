@@ -1,11 +1,14 @@
 # Project Title: Multimedia Game
 
 ### Statement
-Describe your project. 
-* 
+* Describe your project. 
+	* A Procedurally generated 2D Sidescroller/ Platformer Game
 * Why is it interesting? 
+	* Many elements of the game including both graphics and audio will be psuedo-randomly procedurally generated.
 * Why is it interesting to you personally? 
+	* (David) I have a background in music/audio composition, and I am also an hobbyist gamer.  I've been interested in procedural generation of music for a while too.  This project will allow me to explore all of these areas.  
 * What do you hope to learn? 
+	* 
 
 
 
