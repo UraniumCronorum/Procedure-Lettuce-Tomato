@@ -71,7 +71,7 @@ Eg.
 * Create several paragraphs of narrative to explain the pieces and how they interoperate.
 
 ## Schedule
-Explain how you will go from proposal to finished product. 
+<!--Explain how you will go from proposal to finished product. 
 
 There are three deliverable milestones to explicitly define, below.
 
@@ -79,7 +79,7 @@ There are three deliverable milestones to explicitly define, below.
 
 You will be expected to turn in code, documentation, and data (as appropriate) at each of these stages.
 
-Write concrete steps for your schedule to move from concept to working system. 
+Write concrete steps for your schedule to move from concept to working system. -->
 
 ### First Milestone (Fri Apr 15)
 * Basic Assets and Gameplay
@@ -97,7 +97,7 @@ Write concrete steps for your schedule to move from concept to working system.
 * Testing
 
 ## Group Responsibilities
-* Here each group member gets a section where they, as an individual, detail what they are responsible for in this project. Each group member writes their own Responsibility section. Include the milestones and final deliverable.
+<!--* Here each group member gets a section where they, as an individual, detail what they are responsible for in this project. Each group member writes their own Responsibility section. Include the milestones and final deliverable. -->
 
 ### Wesley Nuzzo
 * Character sprite designs
