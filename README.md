@@ -21,7 +21,6 @@ An object-oriented approach will be useful for representing information about in
 During the audio generation process, audio will be represented as lists of notes.  Map and Reduce will be used to convert lists of notes into rsounds, and consolidate multiple rsounds into a single rsound.
 
 Digital Audio is both resource-heavy and unintuitive to think about musically.  As such, it will be abstracted as music notes and sound effects.
-=======
 <!--
 Explain what approaches from class you will bring to bear on the project. 
 * Be explicit: e.g., will you use recursion? How? 
