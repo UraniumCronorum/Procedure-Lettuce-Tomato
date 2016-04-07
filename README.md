@@ -82,7 +82,10 @@ You will be expected to turn in code, documentation, and data (as appropriate) a
 Write concrete steps for your schedule to move from concept to working system. 
 
 ### First Milestone (Fri Apr 15)
-* What exactly will be turned in on this day? 
+* Basic Assets and Gameplay
+	* Interactive sprite animation
+	* Audio Assets
+* Basic procedural generation tests.
 
 ### Second Milestone (Fri Apr 22)
 * What exactly will be turned in on this day? 
@@ -100,6 +103,13 @@ Write concrete steps for your schedule to move from concept to working system.
 	* Background and foreground art
 	* Procedural generation code for level layout
 * Dialogue
+
+### David Benoit
+* Design audio elements
+	* Sound Effects
+	* Music
+* Game physics (gravity, collision)
+* Psuedo-random procedural generation of audio 
 
 <!-- Irrevelant as we're not a team of three...
 
