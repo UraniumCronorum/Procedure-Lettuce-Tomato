@@ -6,13 +6,18 @@
 * Why is it interesting? 
 	* Many elements of the game including both graphics and audio will be psuedo-randomly procedurally generated.
 * Why is it interesting to you personally? 
-	* (David) I have a background in music/audio composition, and I am also an hobbyist gamer.  I've been interested in procedural generation of music for a while too.  This project will allow me to explore all of these areas.  
+	* (David) I have a background in music/audio composition, and I am also an hobbyist gamer.  I've been interested in procedural generation of music for a while too.  This project will allow me to explore all of these areas. 
+	* (Wesley) I've tried my hand at game design in the past, but have yet to make a full game. This is an opportunity for me to create a complete game while also learning & experimenting with a new design technique.
 * What do you hope to learn? 
-	* 
-
-
+	* How some of Racket's sound, graphics, and gaming libraries work.
+	* How procedural generation works in videogames.
 
 ### Analysis
+
+Procedural generation requires recursion/iteration as content is generally created one piece at a time, with the content of future pieces partially dependent on that of previous pieces.
+An object-oriented approach will be useful for representing information about individual characters and physical objects in the scene, among other things.
+
+<!--
 Explain what approaches from class you will bring to bear on the project. 
 * Be explicit: e.g., will you use recursion? How? 
 * Will you use map/filter/reduce? How? 
@@ -20,8 +25,13 @@ Explain what approaches from class you will bring to bear on the project.
 * Will you use object-orientation? Will you use functional approaches to processing your data? Will you use state-modification approaches? A combination?
 
 The idea here is to identify what ideas from the class you will use in carrying out your project. 
+-->
 
 ### Data set or other source materials
+
+The visuals will require external files containing the relevent images. These can be created in GIMP or using one of Racket's image libraries.
+The audio may require audio samples of some sort.
+<!--
 If you will be working with existing data, where will you get those data from? (Dowload it from a website? access it in a database? create it in a simulation you will build....)
 
 How will you convert that data into a form usable for your project?  
@@ -29,6 +39,7 @@ How will you convert that data into a form usable for your project?
 Do your homework here: if you are pulling data from somewhere, actually go download it and look at it. Explain in some detail what your plan is for accomplishing the necessary processing.
 
 If you are using some other starting materails, explain what they are. Basically: anything you plan to use that isn't code.
+-->
 
 ### Deliverable and Demonstration
 Explain exactly what you'll have at the end. 
