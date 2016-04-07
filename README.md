@@ -33,7 +33,7 @@ The idea here is to identify what ideas from the class you will use in carrying 
 
 ### Data set or other source materials
 
-The visuals will require external files containing the relevent images. These can be created in GIMP or using one of Racket's image libraries.
+The visuals will require external files containing the relevent images. These can be created in GIMP/ Inkscape or using one of Racket's image libraries.
 The audio may require audio samples of some sort.
 <!--
 If you will be working with existing data, where will you get those data from? (Dowload it from a website? access it in a database? create it in a simulation you will build....)
@@ -88,10 +88,13 @@ Write concrete steps for your schedule to move from concept to working system.
 * Basic procedural generation tests.
 
 ### Second Milestone (Fri Apr 22)
-* What exactly will be turned in on this day? 
+* Apply and improve procedural generation algorithm to level design/ audio.
 
 ### Final Presentation (last week of semester)
-* What additionally will be done in the last chunk of time?
+* Embellishments
+	* Storyline
+	* Boss battles
+* Testing
 
 ## Group Responsibilities
 * Here each group member gets a section where they, as an individual, detail what they are responsible for in this project. Each group member writes their own Responsibility section. Include the milestones and final deliverable.
