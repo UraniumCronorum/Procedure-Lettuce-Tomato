@@ -46,25 +46,18 @@ If you are using some other starting materails, explain what they are. Basically
 -->
 
 ### Deliverable and Demonstration
-Explain exactly what you'll have at the end. 
+<!--Explain exactly what you'll have at the end. 
 * What will it be able to do at the live demo?
-	* We will have a playable 2D Game to demonstrate at the 
 * What exactly will you produce at the end of the project? 
-* What will it do?
-
-Eg.
-* Will it run on some data, like batch mode? 
-* Will you present some analytical results of the processing? 
-* How can it be re-run on different source data?
-	* It can be given a specific seed to use to generate a 
-
-* Will it be interactive? 
-* Can you show it working? This project involves a live demo, so interactivity is good.
+* What will it do? -->
+	* We will have a playable 2D Game to demonstrate at the end of the project.  
+	* If given a specific seed, it should always generate the same level layout and audio for that seed.
 
 ### Evaluation of Results
-* How will you know if you are successful? 
-	* If you include some kind of _quantitative analysis,_ that would be good.
-
+* We will be able to measure our success by ensuring:
+	* User input causes the sprite to move correctly
+	* All areas of procedurally generated levels are accessable by the sprite
+	* Procedurally generated audio is smooth and plays at the correct times. 
 ## Architecture Diagram
 * Upload the architecture diagram you made for your slide presentation to your repository, and include it in-line here.
 
