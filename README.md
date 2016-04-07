@@ -74,6 +74,14 @@ Write concrete steps for your schedule to move from concept to working system.
 ## Group Responsibilities
 * Here each group member gets a section where they, as an individual, detail what they are responsible for in this project. Each group member writes their own Responsibility section. Include the milestones and final deliverable.
 
+### Wesley Nuzzo
+* Character sprite designs
+* Implementation of sprite animations
+* Level design, i.e.
+	* Background and foreground art
+	* Procedural generation code for level layout
+* Dialogue
+
 <!-- Irrevelant as we're not a team of three...
 
 **Additional instructions for teams of three:** 
