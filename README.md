@@ -1,10 +1,19 @@
 # Project Title: Multimedia Game
 
 ### Statement
-Describe your project. Why is it interesting? Why is it interesting to you personally? What do you hope to learn? 
+Describe your project. 
+* Why is it interesting? 
+* Why is it interesting to you personally? 
+* What do you hope to learn? 
+
+
 
 ### Analysis
-Explain what approaches from class you will bring to bear on the project. Be explicit: e.g., will you use recursion? How? Will you use map/filter/reduce? How? Will you use data abstraction? Will you use object-orientation? Will you use functional approaches to processing your data? Will you use state-modification approaches? A combination?
+Explain what approaches from class you will bring to bear on the project. 
+* Be explicit: e.g., will you use recursion? How? 
+* Will you use map/filter/reduce? How? 
+* Will you use data abstraction? 
+* Will you use object-orientation? Will you use functional approaches to processing your data? Will you use state-modification approaches? A combination?
 
 The idea here is to identify what ideas from the class you will use in carrying out your project. 
 
@@ -18,45 +27,51 @@ Do your homework here: if you are pulling data from somewhere, actually go downl
 If you are using some other starting materails, explain what they are. Basically: anything you plan to use that isn't code.
 
 ### Deliverable and Demonstration
-Explain exactly what you'll have at the end. What will it be able to do at the live demo?
+Explain exactly what you'll have at the end. 
+* What will it be able to do at the live demo?
 
-What exactly will you produce at the end of the project? A piece of software, yes, but what will it do? Here are some questions to think about (and answer depending on your application).
+* What exactly will you produce at the end of the project? 
+* What will it do?
 
-Will it run on some data, like batch mode? Will you present some analytical results of the processing? How can it be re-run on different source data?
+Eg.
+* Will it run on some data, like batch mode? 
+* Will you present some analytical results of the processing? 
+* How can it be re-run on different source data?
 
-Will it be interactive? Can you show it working? This project involves a live demo, so interactivity is good.
+* Will it be interactive? 
+* Can you show it working? This project involves a live demo, so interactivity is good.
 
 ### Evaluation of Results
-How will you know if you are successful? 
-If you include some kind of _quantitative analysis,_ that would be good.
+* How will you know if you are successful? 
+	* If you include some kind of _quantitative analysis,_ that would be good.
 
 ## Architecture Diagram
-Upload the architecture diagram you made for your slide presentation to your repository, and include it in-line here.
+* Upload the architecture diagram you made for your slide presentation to your repository, and include it in-line here.
 
-Create several paragraphs of narrative to explain the pieces and how they interoperate.
+* Create several paragraphs of narrative to explain the pieces and how they interoperate.
 
 ## Schedule
 Explain how you will go from proposal to finished product. 
 
 There are three deliverable milestones to explicitly define, below.
 
-The nature of deliverables depend on your project, but may include things like processed data ready for import, core algorithms implemented, interface design prototyped, etc. 
+ The nature of deliverables depend on your project, but may include things like processed data ready for import, core algorithms implemented, interface design prototyped, etc. 
 
 You will be expected to turn in code, documentation, and data (as appropriate) at each of these stages.
 
 Write concrete steps for your schedule to move from concept to working system. 
 
 ### First Milestone (Fri Apr 15)
-What exactly will be turned in on this day? 
+* What exactly will be turned in on this day? 
 
 ### Second Milestone (Fri Apr 22)
-What exactly will be turned in on this day? 
+* What exactly will be turned in on this day? 
 
 ### Final Presentation (last week of semester)
-What additionally will be done in the last chunk of time?
+* What additionally will be done in the last chunk of time?
 
 ## Group Responsibilities
-Here each group member gets a section where they, as an individual, detail what they are responsible for in this project. Each group member writes their own Responsibility section. Include the milestones and final deliverable.
+* Here each group member gets a section where they, as an individual, detail what they are responsible for in this project. Each group member writes their own Responsibility section. Include the milestones and final deliverable.
 
 <!-- Irrevelant as we're not a team of three...
 
