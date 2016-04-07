@@ -58,7 +58,9 @@ If you are using some other starting materails, explain what they are. Basically
 	* User input causes the sprite to move correctly
 	* All areas of procedurally generated levels are accessable by the sprite
 	* Procedurally generated audio is smooth and plays at the correct times. 
-## Architecture Diagram
+	* 
+### Architecture Diagram
+![Architecture Diagram](https://github.com/oplS16projects/Procedure-Lettuce-Tomato/blob/master/architecture_diagram.png)
 * Upload the architecture diagram you made for your slide presentation to your repository, and include it in-line here.
 
 * Create several paragraphs of narrative to explain the pieces and how they interoperate.
