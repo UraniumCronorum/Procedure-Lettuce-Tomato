@@ -183,8 +183,7 @@
 (define (letter-and-octave-to-freq letter octave)
   (midi-note-num->pitch (letter-and-octave-to-midi letter octave)))
 
-(define (vgame-note letter octave)
-  (synth-note "vgame" 10 (letter-and-octave-to-midi letter octave) whole-note-length))
+
 
 ;;;;;;;;;;;; NOTE OBJECT ;;;;;;;;;;;;;;
 
@@ -289,9 +288,16 @@
       (car (get-item instrument))
       (raise-type-error 'instrument->name "Instrument" instrument)))
 
+(define (instrument-proc-wrapper instrument-proc)
+  (lambda (note)
+    (if (rest? note)
+        (silence (rest->duration note))
+        (instrument-proc note))))
+        
 (define (instrument->proc instrument)
   (if (instrument? instrument)
-      (cdr (get-item instrument))
+      (instrument-proc-wrapper
+       (cdr (get-item instrument)))
       (raise-type-error 'instrument->proc "Instrument" instrument)))
 
 
@@ -354,15 +360,16 @@
   (cond ((rest? note)
          (silence (rest->duration note)))
         ((note? note)
-         (synth-note "vgame" 5 (note->midi-number note) (note->duration note)))))
+         (synth-note "vgame" 76 (note->midi-number note) (note->duration note)))))
 
 (define Sol (make-note 'G 5 (quarter-note-length)))
 (define Fa (make-note 'F 5 (quarter-note-length)))
-(define Mi (make-note 'E 5 (quarter-note-length)))
+(define Mi (make-note 'Eb 5 (quarter-note-length)))
 (define Re (make-note 'D 5 (quarter-note-length)))
 (define Do (make-note 'C 5 (quarter-note-length)))
 (define Ti (make-note 'B 4 (quarter-note-length)))
 (define LowSol (make-note 'G 4 (quarter-note-length)))
+(define rest (make-rest (quarter-note-length)))
 
 
 
@@ -377,7 +384,7 @@
 (define staff1 (make-ensemble-staff (list staff-part1 staff-part2)))
 
 ;; Uncomment the following lines to play a short rsound
- (play (rs-filter (e-staff->rsound staff1) reverb))
+ (play (e-staff->rsound staff1))
 
 
 
