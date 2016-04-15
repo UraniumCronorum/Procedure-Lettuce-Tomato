@@ -264,10 +264,24 @@
          (else
           (if (procedure? note-to-rsound-proc)
              (raise-type-error 'arg1 "Melody" melody)
-             ((raise-type-error 'arg2 "procedure" note-to-rsound-proc))))))
+             (raise-type-error 'arg2 "procedure" note-to-rsound-proc)))))
 
-;; (define (append-melody m1 m2) 1)
-;; (define (append-melody* melodylist) 1)
+(define (append-melody m1 m2)
+  (cond ((and (melody? m1) (melody? m2))
+         (make-melody (append (melody->notelist m1)
+                              (melody->notelist m2))))
+         (else
+           (if (melody? m1)
+             (raise-type-error 'arg1 "Melody" m1)
+             (raise-type-error 'arg2 "Melody" m1)))))
+
+                
+
+(define (append-melody* melodylist)
+  (foldl (lambda (x y)
+           (if (eq? y '())
+               x
+                (append-melody x y))) '() melodylist))
 
 
 ;;;;;;;;;;;;; INSTRUMENT OBJECT ;;;;;;;;;;;;;;
@@ -305,32 +319,47 @@
 
 (define (make-staff-part instrument melody)
   (cond ((and (instrument? instrument) (melody? melody))
-         (attach-tag 'Staff-Part (cons instrument melody)))
+         (attach-tag 'StaffPart (cons instrument melody)))
         (else
          (if (procedure? instrument)
              (raise-type-error 'arg2 "Melody" melody)
              ((raise-type-error 'arg1 "procedure" instrument))))))
 
 (define (staff-part? x)
-  (eq? (get-tag x) 'Staff-Part))
+  (eq? (get-tag x) 'StaffPart))
 
 (define (staff-part->instrument staff-part)
   (if (staff-part? staff-part)
       (car (get-item staff-part))
-      (raise-type-error 'staff-part->instrument "Staff-Part" staff-part)))
+      (raise-type-error 'staff-part->instrument "StaffPart" staff-part)))
 
 (define (staff-part->melody staff-part)
   (if (staff-part? staff-part)
       (cdr (get-item staff-part))
-      (raise-type-error 'staff-part->instrument "Staff-Part" staff-part)))
+      (raise-type-error 'staff-part->instrument "StaffPart" staff-part)))
 
 (define (staff-part->rsound staff-part)
  (if (staff-part? staff-part)
      (melody->rsound
       (staff-part->melody staff-part)
       (instrument->proc (staff-part->instrument staff-part)))
-     (raise-type-error 'staff-part->instrument "Staff-Part" staff-part)))
+     (raise-type-error 'staff-part->instrument "StaffPart" staff-part)))
 
+(define (append-staff-part part1 part2)
+    (cond ((and (staff-part? part1) (staff-part? part2))
+         (make-staff-part (staff-part->instrument part1)
+                          (append-melody (staff-part->melody part1)
+                                         (staff-part->melody part2))))
+         (else
+           (if (staff-part? part1)
+             (raise-type-error 'arg1 "StaffPart" part2)
+             (raise-type-error 'arg2 "StaffPart" part1)))))
+
+(define (append-staff-part* staff-partlist)
+  (foldl (lambda (x y)
+           (if (eq? y '())
+               x
+                (append-staff-part x y))) '() staff-partlist))
 
 ;;;;;;;;;;;;;; ENSEMBLE STAFF OBJECT ;;;;;;;;;;;;;;;;
 
@@ -349,8 +378,27 @@
 (define (e-staff->rsound staff)
   (rs-overlay* (map staff-part->rsound (e-staff->partlist staff))))
 
-;; (define (append-staff staff1 staff2) 1)
-;; (define (append-staff* stafflist) 1)
+;; (define (append-e-staff staff1 staff2) 1)
+;; (define (append-e-staff* stafflist) 1)
+
+(define (append-ensemble-staff e-staff1 e-staff2)
+    (cond ((and (e-staff? e-staff1) (e-staff? e-staff2))
+         (make-ensemble-staff
+           (map (lambda (x y) (append-staff-part x y))
+                (e-staff->partlist e-staff1)
+                (e-staff->partlist e-staff2))))
+         (else
+           (if (e-staff? e-staff1)
+             (raise-type-error 'arg1 "EnsembleStaff" e-staff2)
+             (raise-type-error 'arg2 "EnsembleStaff" e-staff1)))))
+
+(define (append-ensemble-staff* e-stafflist)
+  (foldl (lambda (x y)
+           (if (eq? y '())
+               x
+                (append-ensemble-staff x y))) '() e-stafflist))
+
+
 
 
 ;;;;;;;;;; TESTS ;;;;;;;;;;;;
@@ -381,10 +429,18 @@
 (define staff-part1 (make-staff-part soft-synth melody1))
 (define staff-part2 (make-staff-part soft-synth melody2))
 
+(define staff-part3 (append-staff-part staff-part1 staff-part2))
+(define staff-part4 (append-staff-part* (list staff-part1 staff-part2)))
+
 (define staff1 (make-ensemble-staff (list staff-part1 staff-part2)))
 
 ;; Uncomment the following lines to play a short rsound
- (play (e-staff->rsound staff1))
+;; (play (e-staff->rsound staff1))
+
+(define ap (append-melody* (list melody1 melody2 melody1)))
+
+(define staff2 (append-ensemble-staff staff1 staff1))
+;(define staff3 (append-ensemble-staff* (list staff1 staff1)))
 
 
 
