@@ -48,7 +48,7 @@
 ;;;;;;;;;;;;;;; TEST PLAYGROUND ;;;;;;;;;;;;;;;
 
 ;; Create a higher randomly generated
-;; atonal staff part that is 10
+;; atonal staff part that is 15
 ;; measures long
 (define soprano
   (make-staff-part soft-synth
@@ -56,7 +56,7 @@
                     (gen-random-measure 'C 5 'C 6)))))
 
 ;; Create a lower randomly generated
-;; atonal staff part that is 10
+;; atonal staff part that is 15
 ;; measures long
 (define bass
   (make-staff-part soft-synth
@@ -70,3 +70,16 @@
 
 ;; Build the ensemble-staff into an rsound and play it
 (play (e-staff->rsound atonal-duet))
+(display "This racket program requires the package rsound (available via raco).")
+(newline)
+(display "It should be run from the same directory that contains synthesis-framework.rkt")
+(newline)
+(display "..................................................................")
+(newline)
+(display "Sound clip is approx. 45 seconds long")
+(newline)
+(display "Sound is generated randomly with no consideration of tonal harmony.")
+(newline)
+(display "It will be different every time it is played")
+(newline)
+(display "Tonal harmony rules will be implemented next.")
