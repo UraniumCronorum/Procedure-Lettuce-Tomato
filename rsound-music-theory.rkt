@@ -18,22 +18,9 @@
 (require rsound/single-cycle)
 
 ;; Provide procedures
-(provide note-letter-to-base-number)
-(provide letter-and-octave-to-midi)
-(provide whole-note-length)
-(provide whole-note-length)
-(provide dotted-half-note-length)
-(provide half-note-length)
-(provide double-dotted-quarter-note-length)
-(provide dotted-quarter-note-length)
-(provide quarter-note-length)
-(provide dotted-eighth-note-length)
-(provide eighth-note-length)
-(provide dotted-sixteenth-note-length)
-(provide sixteenth-note-length)
-(provide thirtysecond-note-length)
+(provide (all-defined-out))
 
-;;;;;;;  BASIC UTILITIES ;;;;;;;;;;
+;;;;;;;  BASIC NON MUSICAL UTILITIES ;;;;;;;;;;
 
 (define (attach-tag tag item)
   (cons tag item))
@@ -46,6 +33,12 @@
   (if (pair? object)
       (cdr object)
       'error))
+
+(define (do-x-times proc x)
+  (cond ((< x 2) (proc))
+        (else
+         (do-times proc (- x 1))
+         (proc))))
 
 ;; Take a note letter name and convert it
 ;; to its relative midi representation 0-11
@@ -67,6 +60,29 @@
         ((eq? letter 'Bb) 10)
         ((eq? letter 'B) 11)
         (else -1)))
+
+(define (midi-number->letter number)
+  (define num (remainder number 12))
+  (cond ((eq? num 0) 'C)
+        ((eq? num 1)'C#)
+        ((eq? num 2) 'D)
+        ((eq? num 3)'D#)
+        ((eq? num 3)'Eb)
+        ((eq? num 4) 'E)
+        ((eq? num 5) 'F)
+        ((eq? num 6)'F#)
+        ((eq? num 6)'Gb)
+        ((eq? num 7) 'G)
+        ((eq? num 8)'G#)
+        ((eq? num 8)'Ab)
+        ((eq? num 9) 'A)
+        ((eq? num 10)'A#)
+        ((eq? num 10)'Bb)
+        ((eq? num 11) 'B)
+        (else -1)))
+
+(define (midi-number->octave num)
+  (quotient num 12))
 
 ;; Take a note and octave and convert it to
 ;; its exact midi number
@@ -183,7 +199,13 @@
 (define (letter-and-octave-to-freq letter octave)
   (midi-note-num->pitch (letter-and-octave-to-midi letter octave)))
 
+(define (subdivide beat subdivision)
+  (build-list subdivision (lambda (x) (round (/ beat subdivision)))))
 
+(define (make-note-from-midi-num num length)
+  (make-note (midi-number->letter num)
+             (midi-number->octave num)
+             length))
 
 ;;;;;;;;;;;; NOTE OBJECT ;;;;;;;;;;;;;;
 
@@ -228,6 +250,8 @@
              ((raise-type-error 'arg2 "procedure" note-to-rsound-proc))))))
 
 
+
+
 ;;;;;;;;;;; REST OBJECT ;;;;;;;;;;;;;;
 
 (define (make-rest duration)
@@ -242,46 +266,46 @@
       (raise-type-error 'rest->duration "Rest" rest )))
 
 
-;;;;;;;;;;;; MELODY OBJECT ;;;;;;;;;;;;
+;;;;;;;;;;;; MEASURE OBJECT ;;;;;;;;;;;;
 
-(define (make-melody notelist)
+(define (make-measure notelist)
   (attach-tag
-   'Melody (filter
+   'Measure (filter
             (lambda (x) (or (note? x) (rest? x)))
             notelist)))
 
-(define (melody? x)
-  (eq? (get-tag x) 'Melody))
+(define (measure? x)
+  (eq? (get-tag x) 'Measure))
 
-(define (melody->notelist melody)
-  (if (melody? melody)
-      (get-item melody)
-      (raise-type-error 'melody->notelist "Melody" melody)))
+(define (measure->notelist measure)
+  (if (measure? measure)
+      (get-item measure)
+      (raise-type-error 'measure->notelist "Measure" measure)))
 
-(define (melody->rsound melody note-to-rsound-proc)
-  (cond ((and (melody? melody) (procedure? note-to-rsound-proc))
-           (rs-append* (map note-to-rsound-proc (melody->notelist melody))))
+(define (measure->rsound measure note-to-rsound-proc)
+  (cond ((and (measure? measure) (procedure? note-to-rsound-proc))
+           (rs-append* (map note-to-rsound-proc (measure->notelist measure))))
          (else
           (if (procedure? note-to-rsound-proc)
-             (raise-type-error 'arg1 "Melody" melody)
+             (raise-type-error 'arg1 "Measure" measure)
              (raise-type-error 'arg2 "procedure" note-to-rsound-proc)))))
 
-(define (append-melody m1 m2)
-  (cond ((and (melody? m1) (melody? m2))
-         (make-melody (append (melody->notelist m1)
-                              (melody->notelist m2))))
+(define (append-measure m1 m2)
+  (cond ((and (measure? m1) (measure? m2))
+         (make-measure (append (measure->notelist m1)
+                              (measure->notelist m2))))
          (else
-           (if (melody? m1)
-             (raise-type-error 'arg1 "Melody" m1)
-             (raise-type-error 'arg2 "Melody" m1)))))
+           (if (measure? m1)
+             (raise-type-error 'arg1 "Measure" m1)
+             (raise-type-error 'arg2 "Measure" m1)))))
 
                 
 
-(define (append-melody* melodylist)
+(define (append-measure* measurelist)
   (foldl (lambda (x y)
            (if (eq? y '())
                x
-                (append-melody x y))) '() melodylist))
+                (append-measure x y))) '() measurelist))
 
 
 ;;;;;;;;;;;;; INSTRUMENT OBJECT ;;;;;;;;;;;;;;
@@ -317,12 +341,12 @@
 
 ;;;;;;;;;;;;;; STAFF PART OBJECT ;;;;;;;;;;;;;;;;;
 
-(define (make-staff-part instrument melody)
-  (cond ((and (instrument? instrument) (melody? melody))
-         (attach-tag 'StaffPart (cons instrument melody)))
+(define (make-staff-part instrument measure)
+  (cond ((and (instrument? instrument) (measure? measure))
+         (attach-tag 'StaffPart (cons instrument measure)))
         (else
          (if (procedure? instrument)
-             (raise-type-error 'arg2 "Melody" melody)
+             (raise-type-error 'arg2 "Measure" measure)
              ((raise-type-error 'arg1 "procedure" instrument))))))
 
 (define (staff-part? x)
@@ -333,23 +357,23 @@
       (car (get-item staff-part))
       (raise-type-error 'staff-part->instrument "StaffPart" staff-part)))
 
-(define (staff-part->melody staff-part)
+(define (staff-part->measure staff-part)
   (if (staff-part? staff-part)
       (cdr (get-item staff-part))
       (raise-type-error 'staff-part->instrument "StaffPart" staff-part)))
 
 (define (staff-part->rsound staff-part)
  (if (staff-part? staff-part)
-     (melody->rsound
-      (staff-part->melody staff-part)
+     (measure->rsound
+      (staff-part->measure staff-part)
       (instrument->proc (staff-part->instrument staff-part)))
      (raise-type-error 'staff-part->instrument "StaffPart" staff-part)))
 
 (define (append-staff-part part1 part2)
     (cond ((and (staff-part? part1) (staff-part? part2))
          (make-staff-part (staff-part->instrument part1)
-                          (append-melody (staff-part->melody part1)
-                                         (staff-part->melody part2))))
+                          (append-measure (staff-part->measure part1)
+                                         (staff-part->measure part2))))
          (else
            (if (staff-part? part1)
              (raise-type-error 'arg1 "StaffPart" part2)
@@ -378,9 +402,6 @@
 (define (e-staff->rsound staff)
   (rs-overlay* (map staff-part->rsound (e-staff->partlist staff))))
 
-;; (define (append-e-staff staff1 staff2) 1)
-;; (define (append-e-staff* stafflist) 1)
-
 (define (append-ensemble-staff e-staff1 e-staff2)
     (cond ((and (e-staff? e-staff1) (e-staff? e-staff2))
          (make-ensemble-staff
@@ -401,7 +422,7 @@
 
 
 
-;;;;;;;;;; TESTS ;;;;;;;;;;;;
+;;;;;;;;;; SYNTHESIZERS ;;;;;;;;;;;;
 
 
 (define (soft-synth-rsound note)
@@ -410,40 +431,7 @@
         ((note? note)
          (synth-note "vgame" 76 (note->midi-number note) (note->duration note)))))
 
-(define Sol (make-note 'G 5 (quarter-note-length)))
-(define Fa (make-note 'F 5 (quarter-note-length)))
-(define Mi (make-note 'Eb 5 (quarter-note-length)))
-(define Re (make-note 'D 5 (quarter-note-length)))
-(define Do (make-note 'C 5 (quarter-note-length)))
-(define Ti (make-note 'B 4 (quarter-note-length)))
-(define LowSol (make-note 'G 4 (quarter-note-length)))
-(define rest (make-rest (quarter-note-length)))
-
-
-
-(define melody1 (make-melody (list Do LowSol Do Re Mi)))
-(define melody2 (make-melody (list Mi Re Mi Fa Sol)))
-
 (define soft-synth (make-instrument 'SoftSynth soft-synth-rsound))
-
-(define staff-part1 (make-staff-part soft-synth melody1))
-(define staff-part2 (make-staff-part soft-synth melody2))
-
-(define staff-part3 (append-staff-part staff-part1 staff-part2))
-(define staff-part4 (append-staff-part* (list staff-part1 staff-part2)))
-
-(define staff1 (make-ensemble-staff (list staff-part1 staff-part2)))
-
-;; Uncomment the following lines to play a short rsound
-;; (play (e-staff->rsound staff1))
-
-(define ap (append-melody* (list melody1 melody2 melody1)))
-
-(define staff2 (append-ensemble-staff staff1 staff1))
-;(define staff3 (append-ensemble-staff* (list staff1 staff1)))
-
-
-
 ;;;;;;; OTHER NOTES ;;;;;;;;;
 
 ;; vgame sounds
