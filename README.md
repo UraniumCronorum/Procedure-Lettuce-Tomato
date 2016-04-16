@@ -111,9 +111,16 @@ Write concrete steps for your schedule to move from concept to working system. -
 	* Interactive sprite animation
 	* Audio Assets
 * Basic procedural generation tests.
+Update: Progress so far:
+* Built a small framework for intuitive music programming
+* Created a basic audio generator that generates atonal music in an 8-bit style
 
 ### Second Milestone (Fri Apr 22)
 * Apply procedural generation algorithm to level design/ audio.
+
+Update: New Goals
+* Add rules of tonal harmony to audio generator
+* Add sound effects
 
 ### Final Presentation (last week of semester)
 * Embellishments
