@@ -70,6 +70,8 @@
 
 ;; Build the ensemble-staff into an rsound and play it
 (play (e-staff->rsound atonal-duet))
+
+;; Print some info
 (display "This racket program requires the package rsound (available via raco).")
 (newline)
 (display "It should be run from the same directory that contains synthesis-framework.rkt")
