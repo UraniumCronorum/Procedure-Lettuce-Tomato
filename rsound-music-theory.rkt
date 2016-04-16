@@ -37,7 +37,7 @@
 (define (do-x-times proc x)
   (cond ((< x 2) (proc))
         (else
-         (do-times proc (- x 1))
+         (do-x-times proc (- x 1))
          (proc))))
 
 ;; Take a note letter name and convert it
@@ -341,13 +341,13 @@
 
 ;;;;;;;;;;;;;; STAFF PART OBJECT ;;;;;;;;;;;;;;;;;
 
-(define (make-staff-part instrument measure)
-  (cond ((and (instrument? instrument) (measure? measure))
-         (attach-tag 'StaffPart (cons instrument measure)))
+(define (make-staff-part instrument measurelist)
+  (cond ((instrument? instrument)
+         (attach-tag 'StaffPart (cons
+                                 instrument
+                                 (append-measure* (filter measure? measurelist)))))
         (else
-         (if (procedure? instrument)
-             (raise-type-error 'arg2 "Measure" measure)
-             ((raise-type-error 'arg1 "procedure" instrument))))))
+         (raise-type-error 'make-staff-part "procedure" instrument))))
 
 (define (staff-part? x)
   (eq? (get-tag x) 'StaffPart))
