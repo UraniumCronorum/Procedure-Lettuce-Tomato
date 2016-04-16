@@ -83,9 +83,6 @@ Game Asset Generation
 * Game Level Graphical Assets
 	* The organized subset of graphical elements that will be used by the graphics engine
 
-
-Update:
-* Rather than a generic procedural generation driver function, Audio and Level-Design procedural generation algorithms will be developed separately.
 	
 User Interaction
 * User
@@ -115,9 +112,12 @@ Write concrete steps for your schedule to move from concept to working system. -
 	* Audio Assets
 * Basic procedural generation tests.
 * 
-Update: Progress so far:
+Update - Progress so far:
 * Built a small framework for intuitive music programming
 * Created a basic audio generator that generates atonal music in an 8-bit style
+
+Changes we are making:
+* Rather than a generic procedural generation driver function, Audio and Level-Design procedural generation algorithms will be developed separately.
 
 ### Second Milestone (Fri Apr 22)
 * Apply procedural generation algorithm to level design/ audio.
