@@ -48,7 +48,7 @@
 ;;;;;;;;;;;;;;; TEST PLAYGROUND ;;;;;;;;;;;;;;;
 
 ;; Create a higher randomly generated
-;; atonal staff part that is 10
+;; atonal staff part that is 15
 ;; measures long
 (define soprano
   (make-staff-part soft-synth
@@ -56,7 +56,7 @@
                     (gen-random-measure 'C 5 'C 6)))))
 
 ;; Create a lower randomly generated
-;; atonal staff part that is 10
+;; atonal staff part that is 15
 ;; measures long
 (define bass
   (make-staff-part soft-synth
