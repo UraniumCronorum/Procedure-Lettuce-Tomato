@@ -84,6 +84,8 @@ User Interaction
 Update - Progress so far:
 * Built a small framework for intuitive music programming
 * Created a basic audio generator that generates atonal music in an 8-bit style
+* Created a level generator that generates levels randomly in one dimension
+* Created a representation for sprite art that can be used to create the image files
 
 Changes we are making:
 * Rather than a generic procedural generation driver function, Audio and Level-Design procedural generation algorithms will be developed separately.
@@ -94,6 +96,9 @@ Changes we are making:
 Update: New Goals
 * Add rules of tonal harmony to audio generator
 * Add sound effects
+* Create main character sprite animations
+* Add level art
+* Implement basic gameplay
 
 ### Final Presentation (last week of semester)
 * Embellishments
