@@ -80,7 +80,7 @@ User Interaction
 	* Interactive sprite animation
 	* Audio Assets
 * Basic procedural generation tests.
-* 
+
 Update - Progress so far:
 * Built a small framework for intuitive music programming
 * Created a basic audio generator that generates atonal music in an 8-bit style
