@@ -21,35 +21,13 @@ An object-oriented approach will be useful for representing information about in
 During the audio generation process, audio will be represented as lists of notes.  Map and Reduce will be used to convert lists of notes into rsounds, and consolidate multiple rsounds into a single rsound.
 
 Digital Audio is both resource-heavy and unintuitive to think about musically.  As such, it will be abstracted as music notes and sound effects.
-<!--
-Explain what approaches from class you will bring to bear on the project. 
-* Be explicit: e.g., will you use recursion? How? 
-* Will you use map/filter/reduce? How? 
-* Will you use data abstraction? 
-* Will you use object-orientation? Will you use functional approaches to processing your data? Will you use state-modification approaches? A combination?
-
-The idea here is to identify what ideas from the class you will use in carrying out your project. 
--->
 
 ### Data set or other source materials
 
 The visuals will require external files containing the relevent images. These can be created in GIMP/ Inkscape or using one of Racket's image libraries.
 The audio may require audio samples of some sort.
-<!--
-If you will be working with existing data, where will you get those data from? (Dowload it from a website? access it in a database? create it in a simulation you will build....)
-
-How will you convert that data into a form usable for your project?  
-
-Do your homework here: if you are pulling data from somewhere, actually go download it and look at it. Explain in some detail what your plan is for accomplishing the necessary processing.
-
-If you are using some other starting materails, explain what they are. Basically: anything you plan to use that isn't code.
--->
 
 ### Deliverable and Demonstration
-<!--Explain exactly what you'll have at the end. 
-* What will it be able to do at the live demo?
-* What exactly will you produce at the end of the project? 
-* What will it do? -->
 * We will have a playable 2D game to demonstrate at the end of the project.  
 * If given a specific seed, it should always generate the same level layout and audio for that seed.
 
@@ -60,7 +38,7 @@ If you are using some other starting materails, explain what they are. Basically
 	* Procedurally generated audio is smooth and plays at the correct times. 
 	
 ### Architecture Diagram
-![Architecture Diagram](https://github.com/oplS16projects/Procedure-Lettuce-Tomato/blob/master/architecture_diagram.png)
+![Architecture Diagram](architecture_diagram.png)
 Game Engine
 * Audio Engine
 	* Organizes game audio assets and provides an interface to them for the Gameplay Engine.  Responsible for music and sound effects.
@@ -82,8 +60,8 @@ Game Asset Generation
 	* The organized subset of audio elements that will be used by the audio engine
 * Game Level Graphical Assets
 	* The organized subset of graphical elements that will be used by the graphics engine
-* Generic Procedural Generation Algorithm
-	* Takes an unorganized set of elements and generates an organized subset of elements based on a given set of rules.
+
+	
 User Interaction
 * User
 	* The player of the game.  Not included in product distribution.
@@ -96,15 +74,6 @@ User Interaction
 
 
 ## Schedule
-<!--Explain how you will go from proposal to finished product. 
-
-There are three deliverable milestones to explicitly define, below.
-
- The nature of deliverables depend on your project, but may include things like processed data ready for import, core algorithms implemented, interface design prototyped, etc. 
-
-You will be expected to turn in code, documentation, and data (as appropriate) at each of these stages.
-
-Write concrete steps for your schedule to move from concept to working system. -->
 
 ### First Milestone (Fri Apr 15)
 * Basic Assets and Gameplay
@@ -112,8 +81,24 @@ Write concrete steps for your schedule to move from concept to working system. -
 	* Audio Assets
 * Basic procedural generation tests.
 
+Update - Progress so far:
+* Built a small framework for intuitive music programming
+* Created a basic audio generator that generates atonal music in an 8-bit style
+* Created a level generator that generates levels randomly in one dimension
+* Created a representation for sprite art that can be used to create the image files
+
+Changes we are making:
+* Rather than a generic procedural generation driver function, Audio and Level-Design procedural generation algorithms will be developed separately.
+
 ### Second Milestone (Fri Apr 22)
 * Apply procedural generation algorithm to level design/ audio.
+
+Update: New Goals
+* Add rules of tonal harmony to audio generator
+* Add sound effects
+* Create main character sprite animations
+* Add level art
+* Implement basic gameplay
 
 ### Final Presentation (last week of semester)
 * Embellishments
@@ -122,7 +107,6 @@ Write concrete steps for your schedule to move from concept to working system. -
 * Testing
 
 ## Group Responsibilities
-<!--* Here each group member gets a section where they, as an individual, detail what they are responsible for in this project. Each group member writes their own Responsibility section. Include the milestones and final deliverable. -->
 
 ### Wesley Nuzzo
 * Character sprite designs
@@ -138,23 +122,3 @@ Write concrete steps for your schedule to move from concept to working system. -
 	* Music
 * Game physics (gravity, collision)
 * Psuedo-random procedural generation of audio 
-
-<!-- Irrevelant as we're not a team of three...
-
-**Additional instructions for teams of three:** 
-* Remember that you must have prior written permission to work in groups of three (specifically, an approved `FP3` team declaration submission).
-* The team must nominate a lead. This person is primarily responsible for code integration. This work may be shared, but the team lead has default responsibility.
-* The team lead has full partner implementation responsibilities also.
-* Identify who is team lead.
-
-In the headings below, replace the silly names and GitHub handles with your actual ones.
-
-### Susan Scheme @susanscheme
-will write the....
-
-### Leonard Lambda @lennylambda
-will work on...
-
-### Frank Functions @frankiefunk 
-Frank is team lead. Additionally, Frank will work on...   
--->
