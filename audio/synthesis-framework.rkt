@@ -37,7 +37,7 @@
       'error))
 
 ;; Take a procedure and call it x times
-(define (do-x-times proc x)
+(define (do-x-times x proc )
   (cond ((< x 2) (proc))
         (else
          (do-x-times proc (- x 1))
@@ -104,7 +104,7 @@
 
 ;; Return the length of a whole note in frames
 (define (whole-note-length)
-  default-whole-note-length)
+  (* default-whole-note-length 1.15))
 
 ;; Take an rsound and create a note that has the
 ;; duration of a whole note
@@ -273,7 +273,140 @@
              ((raise-type-error 'arg2 "procedure" note-to-rsound-proc))))))
 
 
+(define (note->interval-up note interval)
+  (cond ((eq? interval 'Unison) note)
+        ((eq? interval 'AugmentedUnison)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 1)
+          (note->duration note)))
+        ((eq? interval 'Minor2nd)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 1)
+          (note->duration note)))
+        ((eq? interval 'Major2nd)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 2)
+          (note->duration note)))
+        ((eq? interval 'Augmented2nd)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 3)
+          (note->duration note)))
+        ((eq? interval 'Minor3rd)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 3)
+          (note->duration note)))
+        ((eq? interval 'Major3rd)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 4)
+          (note->duration note)))
+        ((eq? interval 'Perfect4th)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 5)
+          (note->duration note)))
+        ((eq? interval 'Augmented4th)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 6)
+          (note->duration note)))
+        ((eq? interval 'Diminished5th)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 6)
+          (note->duration note)))
+        ((eq? interval 'PerfectFifth)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 7)
+          (note->duration note)))
+        ((eq? interval 'Augmented5th)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 8)
+          (note->duration note)))
+        ((eq? interval 'Minor6th)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 8)
+          (note->duration note)))
+        ((eq? interval 'Major6th)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 9)
+          (note->duration note)))
+        ((eq? interval 'Minor7th)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 10)
+          (note->duration note)))
+        ((eq? interval 'Major7th)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 11)
+          (note->duration note)))
+        ((eq? interval 'PerfectOctave)
+         (make-note-from-midi-num
+          (+ (note->midi-number note) 12)
+          (note->duration note)))))
 
+(define (note->interval-down note interval)
+  (cond ((eq? interval 'Unison) note)
+        ((eq? interval 'AugmentedUnison)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 1)
+          (note->duration note)))
+        ((eq? interval 'Minor2nd)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 1)
+          (note->duration note)))
+        ((eq? interval 'Major2nd)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 2)
+          (note->duration note)))
+        ((eq? interval 'Augmented2nd)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 3)
+          (note->duration note)))
+        ((eq? interval 'Minor3rd)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 3)
+          (note->duration note)))
+        ((eq? interval 'Major3rd)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 4)
+          (note->duration note)))
+        ((eq? interval 'Perfect4th)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 5)
+          (note->duration note)))
+        ((eq? interval 'Augmented4th)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 6)
+          (note->duration note)))
+        ((eq? interval 'Diminished5th)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 6)
+          (note->duration note)))
+        ((eq? interval 'PerfectFifth)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 7)
+          (note->duration note)))
+        ((eq? interval 'Augmented5th)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 8)
+          (note->duration note)))
+        ((eq? interval 'Minor6th)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 8)
+          (note->duration note)))
+        ((eq? interval 'Major6th)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 9)
+          (note->duration note)))
+        ((eq? interval 'Minor7th)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 10)
+          (note->duration note)))
+        ((eq? interval 'Major7th)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 11)
+          (note->duration note)))
+        ((eq? interval 'PerfectOctave)
+         (make-note-from-midi-num
+          (- (note->midi-number note) 12)
+          (note->duration note)))))
+        
 
 ;;;;;;;;;;; REST OBJECT ;;;;;;;;;;;;;;
 
@@ -299,7 +432,7 @@
 (define (make-measure notelist)
   (attach-tag
    'Measure (filter
-            (lambda (x) (or (note? x) (rest? x)))
+            (lambda (x) (or (note? x) (rest? x) (chord? x)))
             notelist)))
 
 ;; Check if object is a measure
@@ -316,7 +449,10 @@
 ;; and apply the procedure to all notes in the measure
 (define (measure->rsound measure note-to-rsound-proc)
   (cond ((and (measure? measure) (procedure? note-to-rsound-proc))
-           (rs-append* (map note-to-rsound-proc (measure->notelist measure))))
+           (rs-append* (map (lambda (x) (if (chord? x)
+                                           (chord->rsound x  note-to-rsound-proc)
+                                           (note->rsound x note-to-rsound-proc)))
+                            (measure->notelist measure))))
          (else
           (if (procedure? note-to-rsound-proc)
              (raise-type-error 'arg1 "Measure" measure)
@@ -339,6 +475,63 @@
                x
                 (append-measure x y))) '() measurelist))
 
+;; Get the number of notes in a measure object
+(define (measure->length measure)
+  (if (measure? measure)
+      (length (measure->notelist measure))
+      (raise-type-error 'measure->length "Measure" measure)))
+  
+
+;;;;;;;;;;;;; CHORD OBJECT ;;;;;;;;;;;;;;;;;;;
+;; Create a measure object from a list of notes
+(define (make-chord notelist)
+  (attach-tag
+   'Chord (filter
+            (lambda (x) (or (note? x) (rest? x)))
+            notelist)))
+
+;; Check if object is a chord
+(define (chord? x)
+  (eq? (get-tag x) 'Chord))
+
+;; Return the chord's note list
+(define (chord->notelist chord)
+  (if (chord? chord)
+      (get-item chord)
+      (raise-type-error 'chord->notelist "Chord" chord)))
+
+;; Take a chord and a procedure that converts notes to rsounds
+;; and apply the procedure to all notes in the chord
+(define (chord->rsound chord note-to-rsound-proc)
+  (cond ((and (chord? chord) (procedure? note-to-rsound-proc))
+           (rs-overlay* (map note-to-rsound-proc (chord->notelist chord))))
+         (else
+          (if (procedure? note-to-rsound-proc)
+             (raise-type-error 'arg1 "Chord" chord)
+             (raise-type-error 'arg2 "procedure" note-to-rsound-proc)))))
+
+;; Merge two chord objects
+(define (merge-chord m1 m2) 
+  (cond ((and (chord? m1) (chord? m2))
+         (make-chord (append (chord->notelist m1) 
+                              (chord->notelist m2))))
+         (else
+           (if (chord? m1) 
+             (raise-type-error 'arg1 "Chord" m1) 
+             (raise-type-error 'arg2 "Chord" m1)))))
+
+;; Merge a list of chord objects
+(define (merge-chord* chordlist)
+  (foldl (lambda (x y)
+           (if (eq? y '())
+               x
+                (merge-chord x y))) '() chordlist))
+
+;; Get number of notes in a chord
+(define (chord->size chord)
+  (if (chord? chord)
+      (length (chord->notelist chord))
+      (raise-type-error 'chord->size "Chord" chord)))
 
 ;;;;;;;;;;;;; INSTRUMENT OBJECT ;;;;;;;;;;;;;;
 
@@ -483,6 +676,7 @@
          (synth-note "vgame" 82 (note->midi-number note) (note->duration note)))))
 
 (define soft-synth (make-instrument 'SoftSynth soft-synth-rsound))
+
 
 
 ;;;;;;; OTHER NOTES ;;;;;;;;;
