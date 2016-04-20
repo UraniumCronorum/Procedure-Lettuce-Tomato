@@ -432,7 +432,7 @@
 (define (make-measure notelist)
   (attach-tag
    'Measure (filter
-            (lambda (x) (or (note? x) (rest? x) (chord? x)))
+            (lambda (x) (or (note? x) (rest? x) (harmony? x)))
             notelist)))
 
 ;; Check if object is a measure
@@ -449,8 +449,8 @@
 ;; and apply the procedure to all notes in the measure
 (define (measure->rsound measure note-to-rsound-proc)
   (cond ((and (measure? measure) (procedure? note-to-rsound-proc))
-           (rs-append* (map (lambda (x) (if (chord? x)
-                                           (chord->rsound x  note-to-rsound-proc)
+           (rs-append* (map (lambda (x) (if (harmony? x)
+                                           (harmony->rsound x  note-to-rsound-proc)
                                            (note->rsound x note-to-rsound-proc)))
                             (measure->notelist measure))))
          (else
@@ -484,54 +484,54 @@
 
 ;;;;;;;;;;;;; CHORD OBJECT ;;;;;;;;;;;;;;;;;;;
 ;; Create a measure object from a list of notes
-(define (make-chord notelist)
+(define (make-harmony notelist)
   (attach-tag
-   'Chord (filter
+   'Harmony (filter
             (lambda (x) (or (note? x) (rest? x)))
             notelist)))
 
-;; Check if object is a chord
-(define (chord? x)
-  (eq? (get-tag x) 'Chord))
+;; Check if object is a harmony
+(define (harmony? x)
+  (eq? (get-tag x) 'Harmony))
 
-;; Return the chord's note list
-(define (chord->notelist chord)
-  (if (chord? chord)
-      (get-item chord)
-      (raise-type-error 'chord->notelist "Chord" chord)))
+;; Return the harmony's note list
+(define (harmony->notelist harmony)
+  (if (harmony? harmony)
+      (get-item harmony)
+      (raise-type-error 'harmony->notelist "Harmony" harmony)))
 
-;; Take a chord and a procedure that converts notes to rsounds
-;; and apply the procedure to all notes in the chord
-(define (chord->rsound chord note-to-rsound-proc)
-  (cond ((and (chord? chord) (procedure? note-to-rsound-proc))
-           (rs-overlay* (map note-to-rsound-proc (chord->notelist chord))))
+;; Take a harmony and a procedure that converts notes to rsounds
+;; and apply the procedure to all notes in the harmony
+(define (harmony->rsound harmony note-to-rsound-proc)
+  (cond ((and (harmony? harmony) (procedure? note-to-rsound-proc))
+           (rs-overlay* (map note-to-rsound-proc (harmony->notelist harmony))))
          (else
           (if (procedure? note-to-rsound-proc)
-             (raise-type-error 'arg1 "Chord" chord)
+             (raise-type-error 'arg1 "Harmony" harmony)
              (raise-type-error 'arg2 "procedure" note-to-rsound-proc)))))
 
-;; Merge two chord objects
-(define (merge-chord m1 m2) 
-  (cond ((and (chord? m1) (chord? m2))
-         (make-chord (append (chord->notelist m1) 
-                              (chord->notelist m2))))
+;; Merge two harmony objects
+(define (merge-harmony m1 m2) 
+  (cond ((and (harmony? m1) (harmony? m2))
+         (make-harmony (append (harmony->notelist m1) 
+                              (harmony->notelist m2))))
          (else
-           (if (chord? m1) 
-             (raise-type-error 'arg1 "Chord" m1) 
-             (raise-type-error 'arg2 "Chord" m1)))))
+           (if (harmony? m1) 
+             (raise-type-error 'arg1 "Harmony" m1) 
+             (raise-type-error 'arg2 "Harmony" m1)))))
 
-;; Merge a list of chord objects
-(define (merge-chord* chordlist)
+;; Merge a list of harmony objects
+(define (merge-harmony* harmonylist)
   (foldl (lambda (x y)
            (if (eq? y '())
                x
-                (merge-chord x y))) '() chordlist))
+                (merge-harmony x y))) '() harmonylist))
 
-;; Get number of notes in a chord
-(define (chord->size chord)
-  (if (chord? chord)
-      (length (chord->notelist chord))
-      (raise-type-error 'chord->size "Chord" chord)))
+;; Get number of notes in a harmony
+(define (harmony->size harmony)
+  (if (harmony? harmony)
+      (length (harmony->notelist harmony))
+      (raise-type-error 'harmony->size "Harmony" harmony)))
 
 ;;;;;;;;;;;;; INSTRUMENT OBJECT ;;;;;;;;;;;;;;
 

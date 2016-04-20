@@ -22,7 +22,7 @@
   (define (gen-beat-helper len recursion-depth force)
     (let ([recurse (eq? (random 1 50) 2)]
           [subdivision (subdivide len 2)])
-      (cond ((eq? recursion-depth 4) (list len))
+      (cond ((eq? recursion-depth 5) (list len))
             ((eq? recursion-depth 1)
              (append
                       (gen-beat-helper (car subdivision) (+ recursion-depth 1) #f)
@@ -78,23 +78,23 @@
       (make-measure
         (map (lambda (x) (random-pentatonic-note root octaves x)) beat-structure))))
         
-(define (random-chord-tone chord low-octave octaves length)
-  (let ((note-index (random 1 (+ (chord->size chord) 1)))
+(define (random-harmony-tone harmony low-octave octaves length)
+  (let ((note-index (random 1 (+ (harmony->size harmony) 1)))
         (octave-index (random 1 (+ octaves 1))))
-    (define new-temp (list-ref (chord->notelist chord) (- note-index 1)))
+    (define new-temp (list-ref (harmony->notelist harmony) (- note-index 1)))
     (define new-note
       (make-note (note->letter new-temp) low-octave length))
-    (cond ((> octave-index 1) (random-chord-tone
-                               chord
+    (cond ((> octave-index 1) (random-harmony-tone
+                               harmony
                                (+ low-octave 1)
                                (- octaves 1)
                                length))
           (else new-note))))
 
-(define (gen-random-chord-measure chord low-octave octaves length)
+(define (gen-random-harmony-measure harmony low-octave octaves length)
     (let ([beat-structure (gen-random-beat-structure length)])
       (make-measure
-        (map (lambda (x) (random-chord-tone chord low-octave octaves x)) beat-structure))))
+        (map (lambda (x) (random-harmony-tone harmony low-octave octaves x)) beat-structure))))
                    
 ;;;;;;;;;;;;;;; TEST PLAYGROUND ;;;;;;;;;;;;;;;
 
@@ -133,14 +133,14 @@
                    (whole-note-length))))))
 
 (define I
-  (make-chord
+  (make-harmony
     (list
      (make-note 'C 3 (whole-note-length))
      (make-note 'Eb 3 (whole-note-length))
      (make-note 'G 3 (whole-note-length)))))
 
 (define II-half-dim
-  (make-chord
+  (make-harmony
     (list
      (make-note 'D 3 (whole-note-length))
      (make-note 'F 3 (whole-note-length))
@@ -148,58 +148,58 @@
      (make-note 'C 3 (whole-note-length)))))
 
 (define IV
-  (make-chord
+  (make-harmony
     (list
      (make-note 'F 3 (whole-note-length))
      (make-note 'Ab 3 (whole-note-length))
      (make-note 'C 3 (whole-note-length)))))
 
 (define V7
-  (make-chord
+  (make-harmony
     (list
      (make-note 'G 3 (whole-note-length))
      (make-note 'B 3 (whole-note-length))
      (make-note 'D 3 (whole-note-length))
      (make-note 'F 3 (whole-note-length)))))
 
-(define chord-part1
+(define harmony-part1
   (make-staff-part soft-synth
    (reverse
     (list
-     (gen-random-chord-measure I 5 1 (whole-note-length))
-     (gen-random-chord-measure IV 5 1 (whole-note-length))     
-     (gen-random-chord-measure II-half-dim 5 1 (whole-note-length))
-     (gen-random-chord-measure V7 5 1 (whole-note-length))))))
+     (gen-random-harmony-measure I 5 1 (whole-note-length))
+     (gen-random-harmony-measure IV 5 1 (whole-note-length))     
+     (gen-random-harmony-measure II-half-dim 5 1 (whole-note-length))
+     (gen-random-harmony-measure V7 5 1 (whole-note-length))))))
 
-(define chord-part2
+(define harmony-part2
   (make-staff-part soft-synth
    (reverse
     (list
-     (gen-random-chord-measure I 3 1 (whole-note-length))
-     (gen-random-chord-measure IV 3 1 (whole-note-length))
-     (gen-random-chord-measure II-half-dim 3 1 (whole-note-length))
-     (gen-random-chord-measure V7 3 1 (whole-note-length))))))
+     (gen-random-harmony-measure I 3 1 (whole-note-length))
+     (gen-random-harmony-measure IV 3 1 (whole-note-length))
+     (gen-random-harmony-measure II-half-dim 3 1 (whole-note-length))
+     (gen-random-harmony-measure V7 3 1 (whole-note-length))))))
 
-(define chord-part3
+(define harmony-part3
   (make-staff-part soft-synth
    (reverse
     (list
-     (gen-random-chord-measure I 4 1 (whole-note-length))
-     (gen-random-chord-measure IV 4 1 (whole-note-length))     
-     (gen-random-chord-measure II-half-dim 4 1 (whole-note-length))
-     (gen-random-chord-measure V7 4 1 (whole-note-length))))))
+     (gen-random-harmony-measure I 4 1 (whole-note-length))
+     (gen-random-harmony-measure IV 4 1 (whole-note-length))     
+     (gen-random-harmony-measure II-half-dim 4 1 (whole-note-length))
+     (gen-random-harmony-measure V7 4 1 (whole-note-length))))))
 
-(define chord-duet
+(define harmony-duet
   (make-ensemble-staff
-   (list (append-staff-part chord-part1 chord-part1)
-         (append-staff-part chord-part3 chord-part3)
-         (append-staff-part chord-part2 chord-part2))))
+   (list (append-staff-part harmony-part1 harmony-part1)
+         (append-staff-part harmony-part3 harmony-part3)
+         (append-staff-part harmony-part2 harmony-part2))))
 
              
 (define pentatonic-duet
   (make-ensemble-staff (list p q)))
 
-(play (e-staff->rsound chord-duet))
+(play (e-staff->rsound harmony-duet))
 
 ;; Print some info
 (display "This racket program requires the package rsound (available via raco).")
