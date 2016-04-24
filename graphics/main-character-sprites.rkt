@@ -29,35 +29,41 @@
 
     (define hood-points
       (all-points (make-object point% 128 0)
-                  '(0 -1/2 -1 -2 -3 -4 0 2 1/2 0 1 4 0 -4 -3 -2 -1)
-                  '(l l l l l l d r r r l l u r r r r)
-                  '(8 3 3 3 2 2 2 1 1 19 2 2 4 1 2 3 1)))
+                  (map list
+                       '(0 -1/2 -1 -2 -3 -4 0 2 1/2 0 1 4 0 -4 -3 -2 -1)
+                       '(l l l l l l d r r r l l u r r r r)
+                       '(8 3 3 3 2 2 2 1 1 19 2 2 4 1 2 3 1))))
 
     (define shadow-points
       (all-points (last hood-points)
-                  '(-1 -2 -3 -4 0 4 1 -1 -2 -3 -4 0 4 1)
-                  '(l l l l d r r r r r r u l l)
-                  '(1 3 2 1 4 2 2 1 3 2 1 4 2 2)))
+                  (map list
+                       '(-1 -2 -3 -4 0 4 1 -1 -2 -3 -4 0 4 1)
+                       '(l l l l d r r r r r r u l l)
+                       '(1 3 2 1 4 2 2 1 3 2 1 4 2 2))))
 
 
     (define cloak-points
       (all-points (list-ref hood-points 9)
-                  '(-1 -2 -3 -4 -5 -6 -5 -4 -3 -2 -1 -1/2 0
-                       2 3 4 10 4 3 2 1 0)
-                  '(l l l l l l l l l l l l r
-                      l l l l l l l l l)
-                  '(4 2 2 2 6 8 6 4 4 3 2 1 100
-                      4 4 10 7 4 4 4 1 19)))
+                  (map list
+                       '(-1 -2 -3 -4 -5 -6 -5 -4 -3 -2 -1 -1/2 0
+                            2 3 4 10 4 3 2 1 0)
+                       '(l l l l l l l l l l l l r
+                           l l l l l l l l l)
+                       '(4 2 2 2 6 8 6 4 4 3 2 1 100
+                           4 4 10 7 4 4 4 1 19))))
 
     (send temp add-path
+          "hood"
           (multiple-line-path hood-points)
           #:brush (new brush% [color "dark gray"]))
     
     (send temp add-path
+          "shadow"
           (multiple-line-path shadow-points)
           #:brush (new brush% [color "black"]))
 
     (send temp add-path
+          "cloak"
           (multiple-line-path cloak-points)
           #:brush (new brush% [color "dark gray"]))
     

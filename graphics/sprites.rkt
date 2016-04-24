@@ -12,6 +12,7 @@
 ;;;; points from slope and magnitude information, and for creating new paths
 ;;;; from these lists of points.
 
+(require racket/dict)
 
 (provide (all-defined-out))
 
@@ -32,12 +33,13 @@
     (super-new)
 
     ;; modify
-    (define/public (add-path path #:pen [pen default-pen] #:brush [brush default-brush])
-      (set! paths (append paths (list (p-data path pen brush)))))
+    (define/public (add-path name path #:pen [pen default-pen] #:brush [brush default-brush])
+      (set! paths (dict-set paths name
+                            (p-data path pen brush))))
 
     ;; basic output function
     (define/public (output-to-dc dc)
-      (for ([path paths])
+      (for ([path (map cdr paths)])
         (send dc set-brush (p-data-brush path))
         (send dc set-pen (p-data-pen path))
         (send dc draw-path (p-data-path path))))
@@ -142,15 +144,15 @@
       (else (error "invalid direction")))))
 
 ;; apply above to lists
-(define (all-points start-point slopes directions multipliers)
-  (reverse
-   (foldl (λ (slope direction multiplier out)
-            (cons (end-point (first out) slope direction multiplier)
-                  out))
-          (list start-point)
-          slopes
-          directions
-          multipliers)))
+(define (all-points start-point deriv)
+  (foldl (λ (deriv out)
+           (let ([slope (first deriv)]
+                 [direction (second deriv)]
+                 [multiplier (third deriv)])
+             (cons (end-point (first out) slope direction multiplier)
+                   out)))
+           (list start-point)
+           deriv))
 
 ;; paths
 
