@@ -1,5 +1,7 @@
 # Project Title: Multimedia Game
 
+### Gameplay Screenshot
+![Gameplay Screenshot](screenshot.png)
 ### Statement
 * Describe your project. 
 	* A Procedurally generated 2D Sidescroller/ Platformer Game
@@ -81,7 +83,7 @@ User Interaction
 	* Audio Assets
 * Basic procedural generation tests.
 
-Update - Progress so far:
+Progress so far:
 * Built a small framework for intuitive music programming
 * Created a basic audio generator that generates atonal music in an 8-bit style
 * Created a level generator that generates levels randomly in one dimension
@@ -100,7 +102,18 @@ Update: New Goals
 * Add level art
 * Implement basic gameplay
 
+Progress so far:
+* Created tonal harmony rsound interface
+* Added tonal harmony elements to audio generator
+* Updated game assets
+* Created racket asset editor to help create better assets
+* Created main character sprite animations
+* Created enemy asset animations
+* Implemented basic gameplay (character moves based on user input)
+
 ### Final Presentation (last week of semester)
+* Merge procedurally generated level elements with main game
+* Merge enemy animations with main game
 * Embellishments
 	* Storyline
 	* Boss battles
