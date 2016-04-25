@@ -1,5 +1,0 @@
-#lang racket
-
-(require "./gameplay/basic-gameplay.rkt")
-
-(run-game)
