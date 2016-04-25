@@ -8,14 +8,8 @@
 * 2htdp
 
 ### To Run:
-Gameplay/Audio Demo
+Gameplay/Sprite Frame Animation Demo
 * cd to project root dir and exec "racket run-game.racket"
- 
-Level Design Demo
-* --
-
-Sprite Animation Demos
-* --
 
 ### Statement
 * Describe your project. 
