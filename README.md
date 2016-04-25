@@ -132,6 +132,8 @@ Progress so far:
 * Embellishments
 	* Storyline
 	* Boss battles
+	* Add more instruments
+	* Add more chord progressions
 * Testing
 
 ## Group Responsibilities
