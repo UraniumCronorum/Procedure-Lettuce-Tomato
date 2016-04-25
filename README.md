@@ -6,8 +6,10 @@
 ### To Run:
 Gameplay/Audio Demo
 * cd to project root dir and exec "racket run-game.racket"
+* 
 Level Design Demo
 * --
+* 
 Sprite Animation Demos
 * --
 
