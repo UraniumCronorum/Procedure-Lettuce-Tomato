@@ -3,6 +3,10 @@
 ### Gameplay Screenshot
 ![Gameplay Screenshot](screenshot.png)
 
+### Dependencies:
+* rsound
+* 2htdp
+
 ### To Run:
 Gameplay/Audio Demo
 * cd to project root dir and exec "racket run-game.racket"
