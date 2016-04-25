@@ -1,0 +1,1 @@
+("6.4" ("902825172ab49e82fb82878ed4ece349d1d8bc84" . "774314ccc36cdfe1a888b029c7a98efda088b990") #"/home/benoid/Development/Procedure-Lettuce-Tomato/audio/synthesis-framework.rkt" (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt") (collects #"rsound" #"main.rkt"))
