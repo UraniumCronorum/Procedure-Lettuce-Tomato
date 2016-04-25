@@ -117,7 +117,6 @@ Progress so far:
 * Updated game assets
 * Created racket asset editor to help create better assets
 * Created main character sprite animations
-* Created enemy asset animations
 * Implemented basic gameplay (character moves based on user input)
 
 ### Final Presentation (last week of semester)
