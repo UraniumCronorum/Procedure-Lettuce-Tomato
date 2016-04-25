@@ -2,6 +2,15 @@
 
 ### Gameplay Screenshot
 ![Gameplay Screenshot](screenshot.png)
+
+### To Run:
+Gameplay/Audio Demo
+* cd to project root dir and exec "racket run-game.racket"
+Level Design Demo
+* --
+Sprite Animation Demos
+* --
+
 ### Statement
 * Describe your project. 
 	* A Procedurally generated 2D Sidescroller/ Platformer Game
