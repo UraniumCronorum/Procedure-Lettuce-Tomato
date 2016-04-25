@@ -162,6 +162,7 @@
     (play-audio)
     (newline)
     (display "Move left and right with the arrow keys.")
+    (newline)
     (big-bang
      game-world
      (on-tick gw->update-frame-index)
@@ -172,4 +173,3 @@
                      ((key=? a-key "left") (gw->move-player-left w 5))
                      (else w)))))
     (stop-audio)))
- 
