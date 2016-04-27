@@ -25,10 +25,6 @@
     (let ([recurse (eq? (random 1 50) 2)]
           [subdivision (subdivide len 2)])
       (cond ((eq? recursion-depth 5) (list len))
-            ((eq? recursion-depth 1)
-             (append
-                      (gen-beat-helper (car subdivision) (+ recursion-depth 1) #f)
-                      (gen-beat-helper (cadr subdivision) (+ recursion-depth 1) #f)))
             (force
              (append
                       (gen-beat-helper (car subdivision) (+ recursion-depth 1) #f)
@@ -160,27 +156,31 @@
     (- (random 1 (+ (length tonal-proglist) 1)) 1)))
 
 (define (random-harmony-trio)
+  (set-whole-note-length
+   (* (whole-note-length)
+      (/ 120 (random 80 150))))
   (let ((prog (random-progression))
+        (synth (random-synth))
         (key (random-key))
         (repeats 6))
         (make-ensemble-staff
          (list
           (make-staff-part
-            soft-synth
+            synth
             (build-progression-melody
              (prog key (whole-note-length))
              3
              1
              repeats))
           (make-staff-part
-            soft-synth
+            synth
             (build-progression-melody
              (prog key (whole-note-length))
              4
              2
              repeats))
           (make-staff-part
-            soft-synth
+            synth
             (build-progression-melody
              (prog key (whole-note-length))
              3

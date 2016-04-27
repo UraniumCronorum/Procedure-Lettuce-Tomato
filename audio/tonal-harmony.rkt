@@ -234,6 +234,7 @@
 
 ;; Alias make-measure as harmonic-progression 
 (define make-harmonic-progression make-measure)
+(define append-progression* append-measure*)
 
 ;; Alias notelist as chordlist
 (define progression->chordlist measure->notelist)

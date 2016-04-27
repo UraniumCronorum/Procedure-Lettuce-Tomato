@@ -104,6 +104,10 @@
 ;; length of an RSound piano tone
 (define default-whole-note-length 132300)
 
+;; Adjust the global whole-note length
+(define (set-whole-note-length l)
+  (set! default-whole-note-length (round l)))
+
 ;; Return the length of a whole note in frames
 (define (whole-note-length)
   (* default-whole-note-length 1.15))
@@ -679,7 +683,18 @@
 
 (define soft-synth (make-instrument 'SoftSynth soft-synth-rsound))
 
+(define (new-instrument-proc note number)
+  (cond ((rest? note)
+         (silence (rest->duration note)))
+        ((note? note)
+         (synth-note "vgame" (random 1 110) (note->midi-number note) (note->duration note)))))
 
+(define
+ (random-synth)
+  (let ((random-sound (random 114 115)))
+    (make-instrument
+     'RandomInstrument
+     (lambda (note) (new-instrument-proc note random-sound)))))
 
 ;;;;;;; OTHER NOTES ;;;;;;;;;
 
