@@ -2,6 +2,15 @@
 
 ### Gameplay Screenshot
 ![Gameplay Screenshot](screenshot.png)
+
+### Dependencies:
+* rsound
+* 2htdp
+
+### To Run:
+Gameplay/Sprite Frame Animation Demo
+* cd to project root dir and exec "racket run-game.racket"
+
 ### Statement
 * Describe your project. 
 	* A Procedurally generated 2D Sidescroller/ Platformer Game
@@ -108,7 +117,6 @@ Progress so far:
 * Updated game assets
 * Created racket asset editor to help create better assets
 * Created main character sprite animations
-* Created enemy asset animations
 * Implemented basic gameplay (character moves based on user input)
 
 ### Final Presentation (last week of semester)
@@ -117,6 +125,8 @@ Progress so far:
 * Embellishments
 	* Storyline
 	* Boss battles
+	* Add more instruments
+	* Add more chord progressions
 * Testing
 
 ## Group Responsibilities

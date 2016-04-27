@@ -189,7 +189,7 @@
              ))))
 
 (define (play-audio)
-  (display "Building generated audio. Game will begin shortly...")
+  (display "Generating game assets. Game will begin shortly...")
   (newline)
   (play (e-staff->rsound (random-harmony-trio))))
 
