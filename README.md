@@ -82,9 +82,10 @@ My favorite section of code in this project is this series of abstractions of ma
 ;; and apply the procedure to all notes in the measure
 (define (measure->rsound measure note-to-rsound-proc)
   (cond ((and (measure? measure) (procedure? note-to-rsound-proc))
-           (rs-append* (map (lambda (x) (if (harmony? x)
-                                           (harmony->rsound x  note-to-rsound-proc)
-                                           (note->rsound x note-to-rsound-proc)))
+           (rs-append* (map (lambda (x) 
+                              (if (harmony? x)
+                                (harmony->rsound x  note-to-rsound-proc)
+                                (note->rsound x note-to-rsound-proc)))
                             (measure->notelist measure))))
          (else
           (if (procedure? note-to-rsound-proc)
