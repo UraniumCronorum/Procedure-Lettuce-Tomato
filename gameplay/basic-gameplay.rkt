@@ -3,6 +3,7 @@
 (require 2htdp/image)
 (require 2htdp/universe)
 (require "../graphics/Animation.rkt")
+(require "../graphics/graphics.rkt")
 (require "../audio/audio-generator.rkt")
 
 
@@ -108,29 +109,19 @@
     (coord-pair->x (gw->player-coords world))
     (coord-pair->y (gw->player-coords world)))
     (gw->player-facing world)
-   (modulo (+ (gw->player-frame-index world) 1) 4)))
+   (modulo (+ (gw->player-frame-index world) 1) 1)))
 
 ;;;;;;;;;;;; Asset Loading ;;;;;;;;;;;;;;
 
 ;; Create a list of frames of right facing character
-(define cloaked-figure-R
-  (list
-   (bitmap "../graphics/Main Character-Standing-0.png")
-   (bitmap "../graphics/Main Character-Standing-1.png")
-   (bitmap "../graphics/Main Character-Standing-2.png")
-   (bitmap "../graphics/Main Character-Standing-3.png")))
+(define cloaked-figure-R (dict-ref anim-table "Character Facing Right"))
 
 ;; Create a list of frames of left facing character
 
-(define cloaked-figure-L
-  (list
-   (flip-horizontal (bitmap "../graphics/Main Character-Standing-0.png"))
-   (flip-horizontal (bitmap "../graphics/Main Character-Standing-1.png"))
-   (flip-horizontal (bitmap "../graphics/Main Character-Standing-2.png"))
-   (flip-horizontal (bitmap "../graphics/Main Character-Standing-3.png"))))
+(define cloaked-figure-L (dict-ref anim-table "Character Facing Left"))
 
 ;; Load the background
-(define background (bitmap "../graphics/background.jpeg"))
+(define background (bg-room-background 1))
 
 ;; Take a world and get the player's direction and frame
 (define (get-cloaked-figure-bmp direction frame-index)
@@ -142,7 +133,8 @@
 ;; coords specified in the world
 (define (create-cloaked-figure-scene world)
   (place-image
-   (get-cloaked-figure-bmp (gw->player-facing world)                   (gw->player-frame-index world))
+   (get-cloaked-figure-bmp (gw->player-facing world)
+                           (gw->player-frame-index world))
    (coord-pair->x (gw->player-coords world))
    (coord-pair->y (gw->player-coords world))
    background))
@@ -152,7 +144,7 @@
 ;; Make the game world
 (define game-world
  (make-game-world
-  (make-coord-pair 100 600)
+  (make-coord-pair 0 227)  ;; (- screen-height (/ character-height 2) 8), here (- 320 85 8)
   'Right
   0))
 
