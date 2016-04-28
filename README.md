@@ -9,7 +9,7 @@ David Benoit
 LambdaVania is a 2D sidescroller game, in the vein of the Metroidvania/Igavania style of games. The music for the game, and to some extent the level design, is procedurally generated (level layout is currently one-dimensional).
 
 ##Screenshot
-![Gameplay Screenshot](screenshot.png)
+![Gameplay Screenshot](screenshot1.png)
 
 ##Concepts Demonstrated
 
