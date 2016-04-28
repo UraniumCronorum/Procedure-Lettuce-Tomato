@@ -55,9 +55,10 @@ The following function is used to create the level background by tiling a single
 ```
 
 #### David
-While generating the psuedo-random audio sequences, the program uses symbolic music theory objects rather than rsounds during the computation process.  This is both for performance and programming efficiency.  The base unit is a music note, and notes are organized to measures, which are then organized into staff parts, which are organized on an ensemble staff.  The resulting ensemble staff is an object containing lists of lists of lists of note objects.
+While generating the psuedo-random audio sequences, the program uses symbolic music theory objects rather than rsounds during the computation process.  This is both for performance and programming efficiency.  The base unit is a music note. Notes are organized into measures, which are organized into staff parts, which are organized on an ensemble staff.  The resulting ensemble staff is an object containing lists of lists of lists of note objects.
 
 My favorite section of code in this project is this series of abstractions of map and foldl expressions, which builds lists of lists of note objects into a single playable rsound.  
+
 ```
 ;; Convert an ensemble-staff object into an rsound
 (define (e-staff->rsound staff)
