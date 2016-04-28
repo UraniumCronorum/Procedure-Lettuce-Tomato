@@ -1,5 +1,13 @@
 #lang racket/gui
 
+;;;; File Name: editor.rkt
+;;;; Author: Wesley Nuzzo
+;;;; Description:
+;;;; This file defines a GUI editor for creating pixel graphics, as well as the class editor%,
+;;;; which contains the information for the file itself.
+;;;; Running this file will cause it to display a window from which you can load or create new
+;;;; files, as well as save and export completed files.
+
 (require "./sprites.rkt"
          racket/serialize
          racket/dict
@@ -114,7 +122,7 @@
   (define/public (add-frame)
     (if (get-current-animation)
         (let ([new-frame-index (if (get-current-animation) (vector-length (get-current-animation)) 0)]
-              [new-frame (if (get-current-frame) (get-current-frame) #hash())])
+              [new-frame (if (get-current-frame) (get-current-frame) (list))])
           (update-current-animation (vector-append (get-current-animation) (vector new-frame)))
           (set! current-frame-index new-frame-index))
         (void)))
@@ -123,7 +131,7 @@
     ;; not implemented yet
     (if (get-current-animation)
         (let ([new-frame-index (if current-frame-index current-frame-index 0)]
-              [new-frame (if (get-current-frame) (get-current-frame) #hash())]
+              [new-frame (if (get-current-frame) (get-current-frame) (list))]
               [before (vector-take (get-current-animation) current-frame-index)]
               [after (vector-drop (get-current-animation) current-frame-index)])
           (vector-append before (vector new-frame) after)
