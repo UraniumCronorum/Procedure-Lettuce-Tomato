@@ -40,6 +40,19 @@ External technology:
 ##Favorite Scheme Expressions
 
 ####Wesley
+The following function is used to create the level background by tiling a single image. What's cool about this to me is that it uses the accumulate syntax to create the graphics in a similar way to the fashion that we normally use it to construct lists. It's an interesting demonstration of exactly the kind of power that Racket's higher order procedures actually have.
+```
+(define (tile image x y)
+  ;; Generate the rows
+  (let ([row (foldl (lambda (i out) (overlay/xy out i 0 image))
+                    empty-image
+                    (map (lambda (i) (* i (image-width image))) (range x)))])
+    ;; Generate the entire image based on the rows
+    (foldl (lambda (i out) (overlay/xy out 0 i row))
+           empty-image
+           (map (lambda (i) (* i (image-height image)))
+                (range y)))))
+```
 
 ####David
 
