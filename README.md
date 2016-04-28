@@ -146,7 +146,7 @@ This expression reads in a regular expression and elegantly matches it against a
 <!-- Anything else you want to say in your report. Can rename or remove this section. -->
 Procedural Generation Specifics:
 * Audio
-	* Harmonic Progressions are chosen psuedo randomly from a  list of pre-defined progressions
+	* Harmonic progressions are chosen psuedo-randomly from a  list of pre-defined progressions
 	* Notes are chosen psuedo-randomly given the current harmony, key, and the instrument's range
 	* Rhythyms are determined by randomly and recursively subdividing measures by powers of two, up to a recursion depth of 5. 
 	* The key is chosen at random.
