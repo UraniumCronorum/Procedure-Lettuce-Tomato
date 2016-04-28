@@ -1,5 +1,82 @@
-# Project Title: Multimedia Game
+# FP7-webpage LambdaVania
 
+##Authors
+Wesley Nuzzo
+
+David Benoit
+
+##Overview
+LambdaVania is a 2D sidescroller game, in the vein of the Metroidvania/Igavania style of games. The music for the game, and to some extent the level design, is procedurally generated (level layout is currently one-dimensional).
+
+##Screenshot
+![Gameplay Screenshot](screenshot.png)
+
+##Concepts Demonstrated
+
+* **Higher order procedures** such as map and foldl/foldr to convert lists of notes into rsounds, and consolidate multiple rsounds into a single rsound.
+	* Map and foldl/foldr are also used to implement level graphics via a tiling system.
+* **Abstraction** of sounds as musical notes.
+	* There is an **abstraction barrier** between the graphics library and the actual game code, so that the means by which the graphics are loaded/produced doesn't necessarily break the game code.
+
+<!--
+Identify the OPL concepts demonstrated in your project. Be brief. A simple list and example is sufficient. 
+* **Data abstraction** is used to provide access to the elements of the RSS feed.
+* The objects in the OpenGL world are represented with **recursive data structures.**
+* **Symbolic language processing techniques** are used in the parser.
+-->
+
+##External Technology and Libraries
+
+Libraries used:
+* rsound
+* 2htdp
+* racket/gui
+
+External technology:
+* GIMP to make minor edits to certain completed graphics.
+
+<!-- Briefly describe the existing technology you utilized, and how you used it. Provide a link to that technology(ies). -->
+
+##Favorite Scheme Expressions
+
+####Wesley
+
+####David
+
+<!--
+####Mark (a team member)
+Each team member should identify a favorite expression or procedure, written by them, and explain what it does. Why is it your favorite? What OPL philosophy does it embody?
+Remember code looks something like this:
+```scheme
+(map (lambda (x) (foldr compose functions)) data)
+```
+####Lillian (another team member)
+This expression reads in a regular expression and elegantly matches it against a pre-existing hashmap....
+```scheme
+(let* ((expr (convert-to-regexp (read-line my-in-port)))
+             (matches (flatten
+                       (hash-map *words*
+                                 (lambda (key value)
+                                   (if (regexp-match expr key) key '()))))))
+  matches)
+```
+-->
+
+##Additional Remarks
+<!-- Anything else you want to say in your report. Can rename or remove this section. -->
+
+#How to Download and Run
+Gameplay/Sprite Frame Animation Demo
+* cd to project root dir and exec "racket run-game.racket"
+
+<!--
+You may want to link to your latest release for easy downloading by people (such as Mark).
+
+Include what file to run, what to do with that file, how to interact with the app when its running, etc. 
+-->
+
+
+<!-- Previous version of README
 ### Gameplay Screenshot
 ![Gameplay Screenshot](screenshot.png)
 
@@ -145,3 +222,4 @@ Progress so far:
 	* Music
 * Game physics (gravity, collision)
 * Psuedo-random procedural generation of audio 
+-->
