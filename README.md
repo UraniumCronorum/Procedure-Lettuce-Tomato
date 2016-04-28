@@ -14,9 +14,9 @@ LambdaVania is a 2D sidescroller game, in the vein of the Metroidvania/Igavania 
 ##Concepts Demonstrated
 
 * **Higher order procedures** such as map and foldl/foldr to convert lists of notes into rsounds, and consolidate multiple rsounds into a single rsound.
-** Map and foldl/foldr are also used to implement level graphics via a tiling system.
+	* Map and foldl/foldr are also used to implement level graphics via a tiling system.
 * **Abstraction** of sounds as musical notes.
-* There is an **abstraction barrier** between the graphics library and the actual game code, so that the means by which the graphics are loaded/produced doesn't necessarily break the game code.
+	* There is an **abstraction barrier** between the graphics library and the actual game code, so that the means by which the graphics are loaded/produced doesn't necessarily break the game code.
 
 <!--
 Identify the OPL concepts demonstrated in your project. Be brief. A simple list and example is sufficient. 
