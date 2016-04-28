@@ -79,8 +79,8 @@ This expression reads in a regular expression and elegantly matches it against a
 ```
 -->
 
-##Additional Remarks
-<!-- Anything else you want to say in your report. Can rename or remove this section. -->
+<!--##Additional Remarks
+ Anything else you want to say in your report. Can rename or remove this section. -->
 Both the 2htdp/image and rsound libraries seem to run very slowly in some circumstances. As a result, this game takes a long time (couple minutes) to load.
 
 #How to Download and Run
