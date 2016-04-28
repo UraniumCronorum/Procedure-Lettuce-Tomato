@@ -159,9 +159,10 @@
 ;; and apply the procedure to all notes in the measure
 (define (measure-&gt;rsound measure note-to-rsound-proc)
   (cond ((and (measure? measure) (procedure? note-to-rsound-proc))
-           (rs-append* (map (lambda (x) (if (harmony? x)
-                                           (harmony-&gt;rsound x  note-to-rsound-proc)
-                                           (note-&gt;rsound x note-to-rsound-proc)))
+           (rs-append* (map (lambda (x) 
+                              (if (harmony? x)
+                                  (harmony-&gt;rsound x  note-to-rsound-proc)
+                                  (note-&gt;rsound x note-to-rsound-proc)))
                             (measure-&gt;notelist measure))))
          (else
           (if (procedure? note-to-rsound-proc)
