@@ -92,7 +92,7 @@
 ;; Consume a world and create a world
 ;; with the player moved right
 (define (gw->move-player-right world distance)
-  (if (>= (coord-pair->x (gw->player-coords world)) 1024)
+  (if (>= (coord-pair->x (gw->player-coords world)) 640)
       world  
       (make-game-world
        (make-coord-pair
@@ -144,7 +144,7 @@
 ;; Make the game world
 (define game-world
  (make-game-world
-  (make-coord-pair 0 227)  ;; (- screen-height (/ character-height 2) 8), here (- 320 85 8)
+  (make-coord-pair 50 227)  ;; (- screen-height (/ character-height 2) 8), here (- 320 85 8)
   'Right
   0))
 
