@@ -39,7 +39,7 @@ External technology:
 
 ##Favorite Scheme Expressions
 
-####Wesley
+#### Wesley
 The following function is used to create the level background by tiling a single image. What's cool about this to me is that it uses the accumulate syntax to create the graphics in a similar way to the fashion that we normally use it to construct lists. It's an interesting demonstration of exactly the kind of power that Racket's higher order procedures actually have.
 ```
 (define (tile image x y)
@@ -54,8 +54,70 @@ The following function is used to create the level background by tiling a single
                 (range y)))))
 ```
 
-####David
+#### David
+While generating the psuedo-random audio sequences, the program uses symbolic music theory objects rather than rsounds during the computation process.  This is both for performance and programming efficiency.  The base unit is a music note, and notes are organized to measures, which are then organized into staff parts, which are organized on an ensemble staff.  The resulting ensemble staff is an object containing lists of lists of lists of note objects.
 
+My favorite section of code in this project is this series of abstractions of map and foldl expressions, which builds lists of lists of note objects into a single playable rsound.  
+```
+;; Convert an ensemble-staff object into an rsound
+(define (e-staff->rsound staff)
+  (rs-overlay* (map staff-part->rsound (e-staff->partlist staff))))
+  
+;; Convert a staff-part into an rsound
+(define (staff-part->rsound staff-part)
+ (if (staff-part? staff-part)
+     (measure->rsound
+      (append-measure*
+       (staff-part->measurelist staff-part))
+      (instrument->proc (staff-part->instrument staff-part)))
+     (raise-type-error 'staff-part->instrument "StaffPart" staff-part)))
+     
+;; Take a measure and a procedure that converts notes to rsounds
+;; and apply the procedure to all notes in the measure
+(define (measure->rsound measure note-to-rsound-proc)
+  (cond ((and (measure? measure) (procedure? note-to-rsound-proc))
+           (rs-append* (map (lambda (x) (if (harmony? x)
+                                           (harmony->rsound x  note-to-rsound-proc)
+                                           (note->rsound x note-to-rsound-proc)))
+                            (measure->notelist measure))))
+         (else
+          (if (procedure? note-to-rsound-proc)
+             (raise-type-error 'arg1 "Measure" measure)
+             (raise-type-error 'arg2 "procedure" note-to-rsound-proc)))))
+
+;; Take a note object and a procedure which can turn
+;; the note into an rsound.  Call the procedure with
+;; the note object as an argument
+(define (note->rsound note note-to-rsound-proc)
+  (cond ((and (note? note) (procedure? note-to-rsound-proc))
+           (rs-filter (note-to-rsound-proc note) reverb))
+         (else
+          (if (procedure? note-to-rsound-proc)
+             (raise-type-error 'arg1 "Note" note)
+             ((raise-type-error 'arg2 "procedure" note-to-rsound-proc))))))
+
+
+```
+
+All of the previous append-{item} and append-{item}* functions are implemented by combining append with foldl in the same manner as the following example:
+```
+;; Concatenate two measure objects
+(define (append-measure m1 m2)
+  (cond ((and (measure? m1) (measure? m2))
+         (make-measure (append (measure->notelist m1)
+                              (measure->notelist m2))))
+         (else
+           (if (measure? m1)
+             (raise-type-error 'arg1 "Measure" m1)
+             (raise-type-error 'arg2 "Measure" m1)))))
+
+;; Concatenate a list of measure objects
+(define (append-measure* measurelist)
+  (foldl (lambda (x y)
+           (if (eq? y '())
+               x
+                (append-measure x y))) '() measurelist))
+```
 <!--
 ####Mark (a team member)
 Each team member should identify a favorite expression or procedure, written by them, and explain what it does. Why is it your favorite? What OPL philosophy does it embody?
