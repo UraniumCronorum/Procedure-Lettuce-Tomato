@@ -153,6 +153,8 @@ Procedural Generation Specifics:
 	* The key is chosen at random.
 	* The tempo is chosen at random between a maximum and minimum value.
 	* Synth instruments are chosen at random from the rsound/single-cycle library
+* Level Design/ Graphics
+	* Tiles are placed procedurally
 	
 Notes:
 * The list of harmonic progressions is currently small, and all progressions are in minor keys.  This is to assure all generated audio fits the atmosphere of the game.  It is, however, very easy to add new progressions to the generator.  
