@@ -147,9 +147,10 @@ This expression reads in a regular expression and elegantly matches it against a
 Both the 2htdp/image and rsound libraries seem to run very slowly in some circumstances. As a result, this game takes a long time (couple minutes) to load.
 
 Sometimes the rsound/portaudio backend gets messed up and just plays static.  This is more common when other sound-producing applications are running on the host operating system.  To fix:
-1) Stop the game
-2) Close all other sound-producing applications
-3) If you are using drracket, it must be restarted after other applications have been closed.
+
+* Stop the game
+* Close all other sound-producing applications
+* If you are using drracket, it must be restarted after other applications have been closed.
 
 #How to Download and Run
 Gameplay/Sprite Frame Animation Demo
