@@ -161,8 +161,8 @@
   (cond ((and (measure? measure) (procedure? note-to-rsound-proc))
            (rs-append* (map (lambda (x) 
                               (if (harmony? x)
-                                  (harmony-&gt;rsound x  note-to-rsound-proc)
-                                  (note-&gt;rsound x note-to-rsound-proc)))
+                                (harmony-&gt;rsound x  note-to-rsound-proc)
+                                (note-&gt;rsound x note-to-rsound-proc)))
                             (measure-&gt;notelist measure))))
          (else
           (if (procedure? note-to-rsound-proc)
@@ -216,12 +216,16 @@
 <li>Audio
 
 <ul>
-<li>Harmonic Progressions are chosen psuedo randomly from a  list of pre-defined progressions</li>
+<li>Harmonic progressions are chosen psuedo-randomly from a list of pre-defined progressions</li>
 <li>Notes are chosen psuedo-randomly given the current harmony, key, and the instrument's range</li>
 <li>Rhythyms are determined by randomly and recursively subdividing measures by powers of two, up to a recursion depth of 5. </li>
 <li>The key is chosen at random.</li>
 <li>The tempo is chosen at random between a maximum and minimum value.</li>
+<li>Synth instruments are chosen at random from the rsound/single-cycle library
+Notes:</li>
 </ul>
+</li>
+<li>The list of harmonic progressions is currently small, and all progressions are in minor keys.  This is to assure all generated audio fits the atmosphere of the game.  It is, however, very easy to add new progressions to the generator.<br>
 </li>
 </ul>
 
