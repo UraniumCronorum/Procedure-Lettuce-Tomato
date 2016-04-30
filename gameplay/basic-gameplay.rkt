@@ -200,12 +200,12 @@
          ((eq? (gw->player-facing world) 'AttackLeft) 'Left)
          (else
           (gw->player-facing world)))
-   (modulo (+ (gw->player-frame-index world) 1) 1)
+   (+ (gw->player-frame-index world) 1)
 
    (make-coord-pair
     ( +(coord-pair->x (gw->enemy-coords world)) (- (random 1 2) 1))
     (coord-pair->y (gw->enemy-coords world)))
-   (modulo (+ (gw->enemy-frame-index world) 1) 2)
+   (+ (gw->enemy-frame-index world) 1)
    (gw->enemy-facing world)))
 
 
@@ -266,12 +266,13 @@
 
   (place-image
    (get-enemy-bmp (gw->enemy-facing world)
-                           (gw->enemy-frame-index world))
+                  (modulo (floor (/ (gw->enemy-frame-index world) 2))
+                          2))
    (coord-pair->x (gw->enemy-coords world))
    (coord-pair->y (gw->enemy-coords world))
      (place-image
       (get-cloaked-figure-bmp (gw->player-facing world)
-                            (gw->player-frame-index world))
+                            (modulo (gw->player-frame-index world) 1))
       (coord-pair->x (gw->player-coords world))
       (coord-pair->y (gw->player-coords world))
       (gw->background world)))))
@@ -293,7 +294,7 @@
 (define run-w/o-audio
   ;; this makes the game load significantly faster
   (lambda ()
-    (display "Move left and right with the arrow keys.")
+    (display "Move left and right with the arrow keys. Attack with space bar")
     (newline)
     (big-bang
      game-world
@@ -303,7 +304,11 @@
                (cond ((key=? a-key "right")
                       (gw->move-player-right w 5))
                      ((key=? a-key "left") (gw->move-player-left w 5))
-                     (else w)))))
+                     ((key=? a-key " ") (gw->player-attack w))
+                     (else w))))
+     (on-release (lambda (w a-key)
+                   (cond ((key=? a-key " ") (gw->player-attack w))
+                         (else w)))))
     (void)))
 
 ;; Run the game
