@@ -311,7 +311,7 @@
   (lambda ()
     (play-audio)
     (newline)
-    (display "Move left and right with the arrow keys.")
+    (display "Move left and right with the arrow keys. Attack with space bar")
     (newline)
     (big-bang
      game-world
