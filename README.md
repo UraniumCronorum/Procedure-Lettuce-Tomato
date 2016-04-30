@@ -172,7 +172,12 @@ To fix:
 * If you are using drracket, it must be restarted after other applications have been closed.
 
 #How to Download and Run
-Gameplay/Sprite Frame Animation Demo
+
+To download:
+<!-- Linking to a release that doesn't exist yet is hard. Linking to all releases instead. -->
+* go to https://github.com/oplS16projects/Procedure-Lettuce-Tomato/releases and download latest release.
+
+To run:
 * cd to project root dir and exec "racket run-game.racket"
 
 <!--
