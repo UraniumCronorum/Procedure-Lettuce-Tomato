@@ -18,13 +18,6 @@ LambdaVania is a 2D sidescroller game, in the vein of the Metroidvania/Igavania 
 * **Abstraction** of sounds as musical notes.
 	* There is an **abstraction barrier** between the graphics library and the actual game code, so that the means by which the graphics are loaded/produced doesn't necessarily break the game code.
 
-<!--
-Identify the OPL concepts demonstrated in your project. Be brief. A simple list and example is sufficient. 
-* **Data abstraction** is used to provide access to the elements of the RSS feed.
-* The objects in the OpenGL world are represented with **recursive data structures.**
-* **Symbolic language processing techniques** are used in the parser.
--->
-
 ##External Technology and Libraries
 
 Libraries used:
@@ -38,8 +31,6 @@ Libraries used:
 
 External technology:
 * GIMP (https://www.gimp.org/) to make minor edits to certain completed graphics.
-
-<!-- Briefly describe the existing technology you utilized, and how you used it. Provide a link to that technology(ies). -->
 
 ##Favorite Scheme Expressions
 
@@ -124,27 +115,11 @@ All of the previous append-{item} and append-{item}* functions are implemented b
                x
                 (append-measure x y))) '() measurelist))
 ```
-<!--
-###Mark (a team member)
-Each team member should identify a favorite expression or procedure, written by them, and explain what it does. Why is it your favorite? What OPL philosophy does it embody?
-Remember code looks something like this:
-```scheme
-(map (lambda (x) (foldr compose functions)) data)
-```
-####Lillian (another team member)
-This expression reads in a regular expression and elegantly matches it against a pre-existing hashmap....
-```scheme
-(let* ((expr (convert-to-regexp (read-line my-in-port)))
-             (matches (flatten
-                       (hash-map *words*
-                                 (lambda (key value)
-                                   (if (regexp-match expr key) key '()))))))
-  matches)
-```
--->
 
 ##Additional Remarks
+
 <!-- Anything else you want to say in your report. Can rename or remove this section. -->
+
 Procedural Generation Specifics:
 * Audio
 	* Harmonic progressions are chosen psuedo-randomly from a list of pre-defined progressions
@@ -179,13 +154,6 @@ To download:
 
 To run:
 * cd to project root dir and exec "racket run-game.racket"
-
-<!--
-You may want to link to your latest release for easy downloading by people (such as Mark).
-
-Include what file to run, what to do with that file, how to interact with the app when its running, etc. 
--->
-
 
 <!-- Previous version of README
 ### Gameplay Screenshot
