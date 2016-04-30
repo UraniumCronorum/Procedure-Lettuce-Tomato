@@ -136,7 +136,7 @@ Notes:
 
 Issues:
 
-Both the 2htdp/image and rsound libraries seem to run very slowly in some circumstances. As a result, this game takes a long time (couple minutes) to load.
+Both the 2htdp/image and rsound libraries seem to run very slowly in some circumstances. As a result, this game takes a long time (couple minutes) to load.  Gameplay can be somewhat laggy.
 
 Due to lag in the rsound backend, we were not able to build and queue audio clips back to back reliably at runtime.  There would either be signifacant sound overlap or large gaps between the sound clips.  As such, we decided to build one large audio segment at the beginning and play just that.  Because of this, the audio will stop playing when the clip is over.
 
