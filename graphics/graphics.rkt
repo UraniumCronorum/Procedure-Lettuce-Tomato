@@ -8,7 +8,12 @@
   (provide table)
   (define table
     (list (cons "Character Facing Right" (list (bitmap "pngs/Main Character-Standing-0.png")))
-          (cons "Character Facing Left" (list (flip-horizontal (bitmap "pngs/Main Character-Standing-0.png"))))))
+          (cons "Character Facing Left" (list (flip-horizontal (bitmap "pngs/Main Character-Standing-0.png"))))
+          (cons "Character Attack Right" (list (bitmap "pngs/Main Character-Attack-0.png")))
+          (cons "Character Attack Left" (list (flip-horizontal (bitmap "pngs/Main Character-Attack-0.png"))))
+          (cons "Enemy Facing Right" (list (bitmap "pngs/Bat-Flying-0.png")(bitmap "pngs/Bat-Flying-1.png")))
+          (cons "Enemy Facing Left" (list (flip-horizontal (bitmap "pngs/Bat-Flying-0.png"))
+                                            (flip-horizontal (bitmap "pngs/Bat-Flying-1.png"))))))
   (void))
 
 (module backgrounds racket
