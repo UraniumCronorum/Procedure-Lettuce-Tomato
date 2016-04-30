@@ -36,7 +36,7 @@ External technology:
 
 ####Wesley
 The following function is used to create the level background by tiling a single image. What's cool about this to me is that it uses the accumulate syntax to create the graphics in a similar way to the fashion that we normally use it to construct lists. It's an interesting demonstration of exactly the kind of power that Racket's higher order procedures actually have.
-```
+```racket
 (define (tile image x y)
   ;; Generate the rows
   (let ([row (foldl (lambda (i out) (overlay/xy out i 0 image))
@@ -55,7 +55,7 @@ While generating the psuedo-random audio sequences, the program uses symbolic mu
 
 My favorite section of code in this project is this series of abstractions of map and foldl expressions, which builds an ensemble staff into a single playable rsound.  
 
-```
+```racket
 ;; Convert an ensemble-staff object into an rsound
 (define (e-staff->rsound staff)
   (rs-overlay* (map staff-part->rsound (e-staff->partlist staff))))
@@ -97,7 +97,7 @@ My favorite section of code in this project is this series of abstractions of ma
 
 ```
 All of the previous append-{item} and append-{item}* functions are implemented by combining append with foldl in the same manner as the following example:
-```
+```racket
 ;; Concatenate two measure objects
 (define (append-measure m1 m2)
   (cond ((and (measure? m1) (measure? m2))
