@@ -49,6 +49,12 @@
       (define/public (get-all-rooms)
         all-rooms)
 
+      (define/public (get-width)
+        (- right left))
+
+      (define/public (get-height)
+        1)
+
       (define/public (side->wall side)
         (cond ((eq? side 'left) left)
               ((eq? side 'right) right)

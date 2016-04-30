@@ -5,7 +5,7 @@
 (require "../graphics/Animation.rkt")
 (require "../graphics/graphics.rkt")
 (require "../audio/audio-generator.rkt")
-
+(require "../level_generation/gen-level-1d.rkt")
 
 (provide run-game)
 (provide stop-audio)
@@ -20,13 +20,13 @@
 (define (get-tag object)
   (if (pair? object)
       (car object)
-      'unknown))
+      (error "get-tag: not a pair")))
 
 ;; Untag an object
 (define (get-item object)
   (if (pair? object)
       (cdr object)
-      'error))
+      (error "get-item: not a pair")))
 
 ;; Take a procedure and call it x times
 (define (do-x-times x proc )
@@ -56,6 +56,8 @@
 
 ;; Create a game world object
 (define (make-game-world
+         room
+         background
          player-coords
          player-facing
          player-frame-index
@@ -64,7 +66,8 @@
          enemy-facing)
   
   (attach-tag 'GameWorld
-              (list 
+              (list room
+                    background
                     player-coords
                     player-facing
                     player-frame-index
@@ -77,25 +80,46 @@
   (eq? (get-tag x) 'GameWorld))
 
 ;; Accessors
+(define (gw->current-room world)
+  (first (get-item world)))
+(define (gw->background world)
+  (second (get-item world)))
 (define (gw->player-coords world)
-  (car (get-item world)))
+  (third (get-item world)))
 (define (gw->player-facing world)
-  (cadr (get-item world)))
+  (fourth (get-item world)))
 (define (gw->player-frame-index world)
-  (caddr (get-item world)))
+  (fifth (get-item world)))
 (define (gw->enemy-coords world)
-  (cadddr (get-item world)))
+  (sixth (get-item world)))
 (define (gw->enemy-frame-index world)
-  (cadddr (cdr (get-item world))))
+  (seventh (get-item world)))
 (define (gw->enemy-facing world)
-  (cadddr (cdr (cdr (get-item world)))))
+  (eighth (get-item world)))
+
 
 ;; Consume a world and create a world
 ;; with the player moved left
 (define (gw->move-player-left world distance)
-  (if (<= (coord-pair->x (gw->player-coords world)) 50)
-      world
+  (if (<= (coord-pair->x (gw->player-coords world)) 0)
+      ;; Enter left exit
+      (let* ([new-room (send (gw->current-room world) use-exit 'left)]
+             [new-background (bg-room-background (send new-room get-width))])
+        (make-game-world
+         new-room
+         new-background
+         (make-coord-pair (- (image-width new-background) 50) 227)
+         'Left
+         (gw->player-frame-index world)
+         (make-coord-pair
+          (coord-pair->x (gw->enemy-coords world))
+          (coord-pair->y (gw->enemy-coords world)))
+         (gw->enemy-frame-index world)
+         (gw->enemy-facing world)))
+      ;; Move player left
       (make-game-world
+       (gw->current-room world)
+       (gw->background world)
        (make-coord-pair
         (- (coord-pair->x (gw->player-coords world)) distance)
         (coord-pair->y (gw->player-coords world)))
@@ -110,9 +134,26 @@
 ;; Consume a world and create a world
 ;; with the player moved right
 (define (gw->move-player-right world distance)
-  (if (>= (coord-pair->x (gw->player-coords world)) 640)
-      world  
+  (if (>= (coord-pair->x (gw->player-coords world))
+          (- (image-width (gw->background world)) 50))
+      ;; Use right exit
+      (let* ([new-room (send (gw->current-room world) use-exit 'right)]
+             [new-background (bg-room-background (send new-room get-width))])
+        (make-game-world
+         new-room
+         new-background
+         (make-coord-pair 50 227)
+         'Right
+         (gw->player-frame-index world)
+         (make-coord-pair
+          (coord-pair->x (gw->enemy-coords world))
+          (coord-pair->y (gw->enemy-coords world)))
+         (gw->enemy-frame-index world)
+         (gw->enemy-facing world)))
+      ;; Move player right
       (make-game-world
+       (gw->current-room world)
+       (gw->background world)
        (make-coord-pair
         (+ (coord-pair->x (gw->player-coords world)) distance)
         (coord-pair->y (gw->player-coords world)))
@@ -130,6 +171,8 @@
   (if (>= (coord-pair->x (gw->player-coords world)) 640)
       world  
       (make-game-world
+       (gw->current-room world)
+       (gw->background world)
        (make-coord-pair
         (coord-pair->x (gw->player-coords world))
         (coord-pair->y (gw->player-coords world)))
@@ -148,6 +191,8 @@
 ;; with the next player sprite frame
 (define (gw->update-frame-index world)
   (make-game-world
+   (gw->current-room world)
+   (gw->background world)
    (make-coord-pair
     (coord-pair->x (gw->player-coords world))
     (coord-pair->y (gw->player-coords world)))
@@ -158,7 +203,7 @@
    (modulo (+ (gw->player-frame-index world) 1) 1)
 
    (make-coord-pair
-    (coord-pair->x (gw->enemy-coords world))
+    ( +(coord-pair->x (gw->enemy-coords world)) (- (random 1 2) 1))
     (coord-pair->y (gw->enemy-coords world)))
    (modulo (+ (gw->enemy-frame-index world) 1) 2)
    (gw->enemy-facing world)))
@@ -180,6 +225,9 @@
 (define enemy-L
  (dict-ref anim-table "Enemy Facing Left"))
 
+;; Create the starting room (always defaults to one-by-one)
+(define start-room (new room-1D% [entrance 0]))
+
 ;; Load the background
 (define background (bg-room-background 1))
 
@@ -196,39 +244,72 @@
         ((eq? direction 'Left) (list-ref enemy-L frame-index))
         (else (empty-scene 256 256))))
 
+
 ;; Display the character over the background at the
 ;; coords specified in the world
-(define (create-cloaked-figure-scene world)  
+(define (create-cloaked-figure-scene world)
+  (crop
+   ;; x coordinate of where the crop rectangle begins
+   (let ([x (- (coord-pair->x (gw->player-coords world))
+               (/ (image-width background) 2))]
+         [furthest-left 0]
+         [furthest-right (- (image-width (gw->background world))
+                            (image-width background) 2)])
+         (cond ((< x furthest-left) furthest-left)
+               ((> x furthest-right) furthest-right)
+               (else x)))
+   ;; y coordinate
+   0
+   ;; the following are based on the size of the first room (they are the window dimensions)
+   (image-width background) (image-height background)
+   ;; the image itself
+
   (place-image
    (get-enemy-bmp (gw->enemy-facing world)
                            (gw->enemy-frame-index world))
    (coord-pair->x (gw->enemy-coords world))
    (coord-pair->y (gw->enemy-coords world))
-    (place-image
-     (get-cloaked-figure-bmp (gw->player-facing world)
-                           (gw->player-frame-index world))
-     (coord-pair->x (gw->player-coords world))
-     (coord-pair->y (gw->player-coords world))
-     background)))
-
-  
+     (place-image
+      (get-cloaked-figure-bmp (gw->player-facing world)
+                            (gw->player-frame-index world))
+      (coord-pair->x (gw->player-coords world))
+      (coord-pair->y (gw->player-coords world))
+      (gw->background world)))))
 
 ;;;;;;;;;; Game ;;;;;;;;;;;;
 
 ;; Make the game world
 (define game-world
  (make-game-world
-  (make-coord-pair 50 227)
+  start-room
+  background
+  (make-coord-pair 50 227)  ;; y = (- screen-height (/ character-height 2) 8), here (- 320 85 8)
   'Right
   0
   (make-coord-pair 100 100)
   0
   'Right))
 
+(define run-w/o-audio
+  ;; this makes the game load significantly faster
+  (lambda ()
+    (display "Move left and right with the arrow keys.")
+    (newline)
+    (big-bang
+     game-world
+     (on-tick gw->update-frame-index)
+     (to-draw create-cloaked-figure-scene)
+     (on-key (lambda (w a-key)
+               (cond ((key=? a-key "right")
+                      (gw->move-player-right w 5))
+                     ((key=? a-key "left") (gw->move-player-left w 5))
+                     (else w)))))
+    (void)))
+
 ;; Run the game
 (define run-game
   (lambda ()
-  ;  (play-audio)
+    (play-audio)
     (newline)
     (display "Move left and right with the arrow keys.")
     (newline)
